@@ -20,3 +20,7 @@ To get started developing right away:
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+## Frontend Server
+
+Information about the frontend server and how to use it can be found in its [README file](frontend/README.md).
