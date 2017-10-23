@@ -6,17 +6,34 @@ export const requestPost = post => ({
 	post: post
 })	
 
-export const receivePosts = posts => ({
-	type: types.RECEIVE_POSTS,
-	posts: posts
-})	
+export const receivePosts = posts => {
+	return {
+		type: types.RECEIVE_POSTS,
+		posts: posts
+	}
+}
+
+export const fetchFailed = error => {
+	return {
+		type: types.FETCH_FAILED, 
+		error
+	}
+}
+
+export const isLoading = bool => {
+	return {
+		type: types.IS_LOADING,
+		isLoading: bool
+	}
+}
 
 export const getPosts = () => dispatch => {
+	dispatch(isLoading(true))
 	api.fetchAllPosts( posts => {
-		console.log('in get all posts')
 		dispatch(receivePosts(posts))
 	})
-}	
+	.catch( error => dispatch(fetchFailed(error)))
+}
 
 export function addPost ({text}) {
 	return {

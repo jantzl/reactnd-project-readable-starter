@@ -6,6 +6,7 @@ import './App.css'
 import Modal from 'react-modal'
 import CategoryFilter from './CategoryFilter'
 import PostList from './PostList'
+import { Button, Glyphicon } from 'react-bootstrap'
 import * as api from '../utils/api'
 
 class App extends Component {
@@ -29,12 +30,10 @@ class App extends Component {
     return (
       <div className="container">
         <header className="nav">
-          <h1 className="App-title">Post and Comment</h1>
-					<button
-						className='create-post'
-						onClick={this.openPostModal}>
-							Create Post
-					</button>
+					<h1 className="App-title">Post and Comment</h1>
+					<Button bsSize="small" onClick={this.openPostModal}>
+						Create Post <Glyphicon glyph="plus-sign"/>
+					</Button>
         </header>
 
 				<CategoryFilter categories={categories} />

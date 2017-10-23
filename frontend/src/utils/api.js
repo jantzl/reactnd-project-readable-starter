@@ -25,10 +25,10 @@ export const fetchPostsByCategory  = (category) =>
 		.then(data => data.posts)
 
 // tested GET
-export const fetchAllPosts  = () => 
+export const fetchAllPosts  = (cb) => 
   fetch(`${api}/posts`, { headers })
     .then((res) => res.json())
-		.then(data => data.posts)
+		.then(data =>  cb(data))
 
 // FIXME needs test - inputs? outputs?
 export const createPost  = () => 

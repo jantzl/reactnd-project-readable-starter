@@ -12,7 +12,7 @@ const selectedCategory = (state = '', action) => {
 }
 
 const initialState = {
-	isFetching: false, 
+	isLoading: false, 
 	didInvalidate: false, 
 	items: []
 }
@@ -31,11 +31,16 @@ const posts = (state = initialState, action)  => {
 				})
 			}
 			return state;
+		case types.RECEIVE_POSTS: 
+			return {
+				...state,
+				items: action.posts
+			}
 		//FIXME need to add vote function
 		case types.UPDATE_POST: 
 			//const { post } = action
 			//FIXME 
-			return state;
+			return state
 		case types.DELETE_POST: 
 			//const { post } = action
 			//FIXME 
