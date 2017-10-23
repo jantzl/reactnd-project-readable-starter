@@ -3,28 +3,29 @@ import './App.css'
 //FIXME
 //import { connect }  from 'react-redux'
 //import { addPost } from '../actions'
-//import { fetchAllPosts } from '../utils/api'
+import Modal from 'react-modal'
 import CategoryFilter from './CategoryFilter'
+import PostList from './PostList'
 import * as api from '../utils/api'
 
 class App extends Component {
 	state = {
 		categories: [],
-		posts: [],
 		postModalOpen: false,
 	}
 
 	componentDidMount() {
 		api.fetchCategories().then((categories) => {
-			console.log(categories);
 			this.setState( {categories: categories})
 		});
 	}
 
 	openPostModal = () => this.setState(() => ({ postModalOpen: true}))
-	closePostModal = () => this.setState(() => ({ postModalOpen: true}))
+	closePostModal = () => this.setState(() => ({ postModalOpen: false}))
 
   render() {
+		const {categories, postModalOpen} = this.state
+
     return (
       <div className="container">
         <header className="nav">
@@ -32,16 +33,50 @@ class App extends Component {
 					<button
 						className='create-post'
 						onClick={this.openPostModal}>
-							FIXME Post
+							Create Post
 					</button>
         </header>
-				<CategoryFilter categories={this.state.categories} />
-				<div className='post-list'>
-					FIXME: also needs a sort
-					FIXME post list goes here
-				</div>
+
+				<CategoryFilter categories={categories} />
+
+				<PostList />
+				
+				<Modal
+					isOpen={postModalOpen}
+					onRequestClose={this.closePostModal}
+					contentLabel='Post Modal'
+				>
+					<div>
+						<h2>Add a Post</h2>
+						<form>
+							<div>
+							<input 
+								className='post-title'
+								type='text'
+								placeholder='your title here'
+							/>
+							</div>
+							<div>
+							<input 
+								className='post-author'
+								type='text'
+								placeholder='your name here'
+							/>
+							</div>
+							<div>
+							<textarea 
+								className='post-text'
+								placeholder='your post here'
+							/>
+							</div>
+							<CategoryFilter categories={categories} />
+							<button>FIXME Post</button>
+							<button onClick={this.closePostModal}>Cancel</button>
+						</form>
+					</div>
+				</Modal>
       </div>
-    );
+    )
   }
 }
 

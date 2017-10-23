@@ -1,30 +1,42 @@
 import {combineReducers } from 'redux'
 
-import {
-	// post actions
-	GET_POSTS,
-	ADD_POST,
-	UPDATE_POST,
-	DELETE_POST,
-	// comment actions
-	GET_COMMENTS,
-} from '../actions'
+import * as types from '../utils/ActionTypes'
 
-function posts (state = {}, action) {
+const selectedCategory = (state = '', action) => {
 	switch (action.type) {
-		case GET_POSTS: 
-			//FIXME 
-			return state;
-		case ADD_POST: 
-			//const { post } = action
-			//FIXME 
+		case types.SELECT_CATEGORY: 
+			return state
+		default:
+			return state
+	}	
+}
+
+const initialState = {
+	isFetching: false, 
+	didInvalidate: false, 
+	items: []
+}
+
+const posts = (state = initialState, action)  => {
+	switch (action.type) {
+		case types.ADD_POST: 
+			if (action.post) {
+				return Object.assign({}, state, {
+					posts: [
+						Object.assign({}, action.comment, {
+							//FIXME complete this
+						}),
+						...state.posts,
+					],
+				})
+			}
 			return state;
 		//FIXME need to add vote function
-		case UPDATE_POST: 
+		case types.UPDATE_POST: 
 			//const { post } = action
 			//FIXME 
 			return state;
-		case DELETE_POST: 
+		case types.DELETE_POST: 
 			//const { post } = action
 			//FIXME 
 			return state;
@@ -35,7 +47,7 @@ function posts (state = {}, action) {
 
 function comments (state = {}, action) {
 	switch (action.type) {
-		case GET_COMMENTS: 
+		case types.GET_COMMENTS: 
 			//FIXME 
 			return state;
 		default: 
@@ -43,7 +55,10 @@ function comments (state = {}, action) {
 	}
 }
 
-export default combineReducers({
+const rootReducer = combineReducers({
 	posts, 
-	comments,
+	comments, 
+	selectedCategory
 })
+
+export default rootReducer
