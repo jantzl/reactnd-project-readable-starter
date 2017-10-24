@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { votePost } from '../actions/'
 
 
@@ -15,7 +16,7 @@ class PostEntry extends Component {
 		const vote = this.props.vote
 		return (
 			<tr> 
-				<td>{post.title}</td>
+				<td><NavLink to={'/'+post.category + '/' + post.id}>{post.title}</NavLink></td>
 				<td>{post.author}</td>
 				<td>FIXME</td>
 				<td>{post.voteScore}</td>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import FilterLink from './FilterLink'
 
 export default class CategoryFilter extends Component {
 	//FIXME - need to include an onclick to change the filter
@@ -7,10 +8,12 @@ export default class CategoryFilter extends Component {
 		const { categories } = this.props
 		return (
 			<div className='category-filter'>
-				Filter by Category: 
+				Filter by Category:  
+					<button><FilterLink filter="SHOW_ALL">all</FilterLink></button>
 					{categories.map((cat) => {
 						return (
-							<button value={cat.path} key={cat.name}>{cat.name}</button>
+							<button><FilterLink filter={cat.path}>{cat.name}</FilterLink></button>
+
 					)}) }
 			</div>
 		)
