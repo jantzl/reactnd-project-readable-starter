@@ -3,10 +3,8 @@ import {combineReducers } from 'redux'
 import * as types from '../utils/ActionTypes'
 
 const modal = (state = {modalType: null, showModal: false}, action) => {
-	console.log('here');
 	switch (action.type) {
 		case types.SHOW_MODAL: 
-			console.log('in show modal reducer');
 			return {
 				modalType: action.modalType,
 				showModal: true
@@ -42,7 +40,7 @@ const posts = (state = initialState, action)  => {
 			if (action.post) {
 				return Object.assign({}, state, {
 					posts: [
-						Object.assign({}, action.comment, {
+						Object.assign({}, action.post, {
 							//FIXME complete this
 						}),
 						...state.posts,
@@ -53,12 +51,27 @@ const posts = (state = initialState, action)  => {
 		case types.RECEIVE_POSTS: 
 			return {
 				...state,
-				items: action.posts
+				/*
+				itemsById: action.posts.reduce((obj, post) => {
+					obj[post.id] = post
+					return obj
+				}, {}),
+				*/
+				items: action.posts,
 			}
 		case types.RECEIVE_POST_UPDATE: 
-			console.log('gotta update post here');
-			//const { post } = action
-			//FIXME 
+			return {
+				...state,
+				/*
+				itemsById: {
+					...state['itemsById'],
+					[action.post.id]: action.post
+				}, 
+				*/
+				items: state.items.map(item => item.id === action.post.id ? 
+					{...item, voteScore: action.post.voteScore} : item
+				)
+			}
 			return state
 		case types.UPDATE_POST: 
 			//const { post } = action

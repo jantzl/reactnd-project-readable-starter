@@ -41,8 +41,7 @@ export function addPost ({text}) {
 	}
 }	
 
-export const receivePostUpdate = (post) => dispatch => {
-	console.log('got post back', post);
+export const receivePostUpdate = post => {
 	return {
 		type: types.RECEIVE_POST_UPDATE, post
 	}
