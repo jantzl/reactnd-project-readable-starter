@@ -72,7 +72,6 @@ const posts = (state = initialState, action)  => {
 					{...item, voteScore: action.post.voteScore} : item
 				)
 			}
-			return state
 		case types.UPDATE_POST: 
 			//const { post } = action
 			//FIXME 

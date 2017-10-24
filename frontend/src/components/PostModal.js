@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
-import CategoryFilter from './CategoryFilter'
+import CategorySelector from './CategorySelector'
 import { hideModal } from '../actions/'
 
 
 class PostModal extends Component {
 	render() {
-		//FIXME placeholder
-		const categories = [];
 		const closePostModal = this.props.closePostModal
 		const postModalOpen = this.props.postModalOpen
 
@@ -41,7 +39,7 @@ class PostModal extends Component {
                 placeholder='your post here'
               />
               </div>
-              <CategoryFilter categories={categories} />
+              <CategorySelector />
               <button>FIXME Post</button>
               <button onClick={closePostModal}>Cancel</button>
             </form>

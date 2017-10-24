@@ -9,6 +9,7 @@ class App extends Component {
 		categories: [],
 	}
 
+	//FIXME - move this out into redux
 	componentDidMount() {
 		api.fetchCategories().then((categories) => {
 			this.setState( {categories: categories})
