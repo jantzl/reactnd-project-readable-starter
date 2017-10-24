@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Table, ProgressBar } from 'react-bootstrap'
+import { Table, Button, Glyphicon, ProgressBar } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getPosts } from '../actions/'
+import { addPost, getPosts, showModal } from '../actions/'
 import PostEntry from './PostEntry'
-
+import PostModal from './PostModal'
 
 class PostList extends Component {
 	static propTypes = {
@@ -19,7 +19,7 @@ class PostList extends Component {
 	}
 
 	render () { 
-		const { selectedCategory, posts, isLoading } = this.props
+		const { selectedCategory, posts, isLoading, openModal } = this.props
 		const isEmpty = posts.length === 0
 
 		// if no posts, show loading state
@@ -34,16 +34,18 @@ class PostList extends Component {
 				<div className='post-fixme'>
 					FIXME: also needs a sort
 					FIXME post list goes here
+          <Button bsSize="small" onClick={openModal}>
+            Create Post <Glyphicon glyph="plus-sign"/>
+          </Button>
 				</div>
 				<Table bordered hover responsive>
 					<thead>
 						<tr>
 							<th>Title</th>
-							<th>Body</th>
 							<th>Author</th>
-							<th>Category</th>
-							<th>Votescore</th>
-							<th>Timestamp</th>
+							<th>Number of Comments</th>
+							<th>Number of Votes</th>
+							<th>Up/Down Vote</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -55,6 +57,7 @@ class PostList extends Component {
 						})}
 					</tbody>
 				</Table>
+				<PostModal />
 			</div>
 		)
 	}
@@ -62,22 +65,6 @@ class PostList extends Component {
 
 
 const mapStateToProps = (state) => {
-	console.log('state', state);
-	/*
-	console.log('posts', state.posts);
-	const { selectedCategory, postsByCategory } = state
-
-	let result = {
-		selectedCategory: state.selectedCategory,
-		posts: state.posts.items, 
-		isLoading: state.posts.isLoading
-	}
-
-	console.log('result', result);
-
-	return result
-	*/
-
 	return {
 		selectedCategory: state.selectedCategory,
 		posts: state.posts.items, 
@@ -87,7 +74,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fetchData: () => dispatch(getPosts())
+		openModal: () => dispatch(showModal()),
+		fetchData: () => dispatch(getPosts()),
+    createPost: (data) => dispatch(addPost(data)),
 	}
 }
 

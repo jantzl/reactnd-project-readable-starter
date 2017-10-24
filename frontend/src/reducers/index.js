@@ -2,6 +2,25 @@ import {combineReducers } from 'redux'
 
 import * as types from '../utils/ActionTypes'
 
+const modal = (state = {modalType: null, showModal: false}, action) => {
+	console.log('here');
+	switch (action.type) {
+		case types.SHOW_MODAL: 
+			console.log('in show modal reducer');
+			return {
+				modalType: action.modalType,
+				showModal: true
+			}
+		case types.HIDE_MODAL: 
+			return {
+				modalType: action.modalType,
+				showModal: false
+			}
+		default:
+			return state
+	}	
+}
+
 const selectedCategory = (state = '', action) => {
 	switch (action.type) {
 		case types.SELECT_CATEGORY: 
@@ -36,7 +55,11 @@ const posts = (state = initialState, action)  => {
 				...state,
 				items: action.posts
 			}
-		//FIXME need to add vote function
+		case types.RECEIVE_POST_UPDATE: 
+			console.log('gotta update post here');
+			//const { post } = action
+			//FIXME 
+			return state
 		case types.UPDATE_POST: 
 			//const { post } = action
 			//FIXME 
@@ -52,7 +75,7 @@ const posts = (state = initialState, action)  => {
 
 function comments (state = {}, action) {
 	switch (action.type) {
-		case types.GET_COMMENTS: 
+		case types.RECEIVE_COMMENTS: 
 			//FIXME 
 			return state;
 		default: 
@@ -63,7 +86,8 @@ function comments (state = {}, action) {
 const rootReducer = combineReducers({
 	posts, 
 	comments, 
-	selectedCategory
+	selectedCategory,
+	modal,
 })
 
 export default rootReducer

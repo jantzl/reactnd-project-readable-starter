@@ -41,10 +41,21 @@ export function addPost ({text}) {
 	}
 }	
 
-export function updatePost ({text}) {
+export const receivePostUpdate = (post) => dispatch => {
+	console.log('got post back', post);
 	return {
-		type: types.UPDATE_POST, text
+		type: types.RECEIVE_POST_UPDATE, post
 	}
+}	
+
+export const updatePost = (post) => dispatch => {
+	return {
+		type: types.UPDATE_POST, post
+	}
+}	
+
+export const votePost = (id, vote) => dispatch => {
+	api.voteOnPost(id, vote, (post) => {dispatch(receivePostUpdate(post))})
 }	
 
 export function deletePost ({text}) {
@@ -56,5 +67,17 @@ export function deletePost ({text}) {
 export function getComments ({text}) {
 	return {
 		type: types.GET_COMMENTS, text
+	}
+}	
+
+export const showModal = () => {
+	return {
+		type: types.SHOW_MODAL
+	}
+}
+
+export function hideModal () {
+	return {
+		type: types.HIDE_MODAL
 	}
 }	

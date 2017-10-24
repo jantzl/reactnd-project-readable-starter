@@ -7,24 +7,24 @@ if (!token)
 
 const headers = {
   'Accept': 'application/json',
-  'Authorization': token
+  'Authorization': token, 
+	'Content-Type': 'application/json',
 }
 
 // ------ category functions ---------
-// tested GET
+// FIXME - test
 export const fetchCategories  = () => 
   fetch(`${api}/categories`, { headers })
     .then((res) => res.json())
 		.then(data => data.categories)
 
 // ------ post functions ---------
-// looks good GET
+// FIXME - test
 export const fetchPostsByCategory  = (category) => 
   fetch(`${api}/${category}/posts`, { headers })
     .then((res) => res.json())
 		.then(data => data.posts)
 
-// tested GET
 export const fetchAllPosts  = (cb) => 
   fetch(`${api}/posts`, { headers })
     .then((res) => res.json())
@@ -43,12 +43,13 @@ export const fetchPostById  = (id) =>
     .then((res) => res.json())
 		.then(data => data.posts)
 
-// FIXME needs test - inputs? outputs?
-export const voteOnPost  = (id,vote) => 
+export const voteOnPost  = (id,vote,cb) => {
   fetch(`${api}/posts/${id}`, 
-			{ headers, method: 'POST', body:  `option:${vote}`})
+			{ headers, method: 'POST', 
+				body:  JSON.stringify({option:vote})})
     .then((res) => res.json())
-		.then(data => data.posts)
+		.then(data => cb(data))
+}
 
 // FIXME needs test - inputs? outputs?
 export const updatePost  = (id) => 
