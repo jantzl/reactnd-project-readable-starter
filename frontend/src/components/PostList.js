@@ -66,7 +66,7 @@ class PostList extends Component {
 const mapStateToProps = (state) => {
 	return {
 		selectedCategory: state.categories.selectedCategory,
-		posts: state.posts.items, 
+		posts: Object.values(state.posts.itemsById), 
 		isLoading: state.posts.isLoading
 	}
 }

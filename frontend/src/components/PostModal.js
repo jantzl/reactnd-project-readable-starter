@@ -17,7 +17,7 @@ class PostModal extends Component {
           contentLabel='Post Modal'
         >
           <div>
-            <h2>Add a Post</h2>
+            <h3>Add a Post</h3>
             <form>
               <div>
               <input
@@ -40,8 +40,8 @@ class PostModal extends Component {
               />
               </div>
               <CategorySelector />
-              <button>FIXME Post</button>
-              <button onClick={closePostModal}>Cancel</button>
+							<button>FIXME Post</button>
+							<button onClick={closePostModal}>Cancel</button>
             </form>
           </div>
         </Modal>

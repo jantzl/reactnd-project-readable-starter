@@ -21,7 +21,7 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 const initialState = {
 	isLoading: false, 
 	didInvalidate: false, 
-	items: []
+	itemsById: {}
 }
 
 const posts = (state = initialState, action)  => {
@@ -41,26 +41,18 @@ const posts = (state = initialState, action)  => {
 		case types.RECEIVE_POSTS: 
 			return {
 				...state,
-				/*
 				itemsById: action.posts.reduce((obj, post) => {
 					obj[post.id] = post
 					return obj
 				}, {}),
-				*/
-				items: action.posts,
 			}
 		case types.RECEIVE_POST_UPDATE: 
 			return {
 				...state,
-				/*
 				itemsById: {
 					...state['itemsById'],
 					[action.post.id]: action.post
 				}, 
-				*/
-				items: state.items.map(item => item.id === action.post.id ? 
-					{...item, voteScore: action.post.voteScore} : item
-				)
 			}
 		case types.UPDATE_POST: 
 			//const { post } = action

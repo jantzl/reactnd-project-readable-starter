@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import CategoryFilter from './CategoryFilter'
-import PostList from './PostList'
-import { getCategories } from '../actions/'
-import './App.css'
 
-class App extends Component {
+class Post extends Component {
 	componentDidMount() {
-    const { fetchData } = this.props
-    fetchData()
+    //const { fetchData } = this.props
+    //fetchData()
 	}
 
   render() {
@@ -20,9 +16,7 @@ class App extends Component {
 					<h1 className="App-title">Post and Comment</h1>
         </header>
 
-				<CategoryFilter categories={categories} />
-
-				<PostList />
+				<div>FIXME</div>
       </div>
     )
   }
@@ -30,15 +24,13 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories.categories,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: () => dispatch(getCategories()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
 

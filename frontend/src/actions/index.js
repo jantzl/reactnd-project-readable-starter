@@ -84,7 +84,18 @@ export function getComments ({text}) {
 	}
 }	
 
-export const showModal = () => {
+export function addComment ({postId, commentText}) {
+	//FIXME need generate id? 
+	return {
+		type: types.ADD_COMMENT,
+		payload: {
+			postId,
+			commentText
+		}
+	}
+}	
+
+export const showModal = (postId=null) => {
 	return {
 		type: types.SHOW_MODAL
 	}
