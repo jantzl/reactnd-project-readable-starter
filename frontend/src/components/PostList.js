@@ -14,8 +14,8 @@ class PostList extends Component {
 	}
 
 	componentDidMount() {
-		const { selectedCategory } = this.props
-		this.props.fetchData()
+		const { selectedCategory, fetchData } = this.props
+		fetchData()
 	}
 
 	render () { 
@@ -63,10 +63,9 @@ class PostList extends Component {
 	}
 }
 
-
 const mapStateToProps = (state) => {
 	return {
-		selectedCategory: state.selectedCategory,
+		selectedCategory: state.categories.selectedCategory,
 		posts: state.posts.items, 
 		isLoading: state.posts.isLoading
 	}

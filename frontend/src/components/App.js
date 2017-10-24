@@ -1,23 +1,19 @@
 import React, { Component } from 'react'
-import './App.css'
+import { connect } from 'react-redux'
 import CategoryFilter from './CategoryFilter'
 import PostList from './PostList'
-import * as api from '../utils/api'
+import { getCategories } from '../actions/'
+import './App.css'
 
 class App extends Component {
-	state = {
-		categories: [],
-	}
-
 	//FIXME - move this out into redux
 	componentDidMount() {
-		api.fetchCategories().then((categories) => {
-			this.setState( {categories: categories})
-		});
+    const { fetchData } = this.props
+    fetchData()
 	}
 
   render() {
-		const {categories} = this.state
+		const { categories } = this.props
 
     return (
       <div className="container">
@@ -33,4 +29,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories.categories,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchData: () => dispatch(getCategories()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+

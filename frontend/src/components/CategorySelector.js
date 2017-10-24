@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-export default class CategorySelector extends Component {
+class CategorySelector extends Component {
 	render() {
-		const categories = []
+		const categories = this.props.categories
 		return (
 			<div className='category-filter'>
 				Category: 
@@ -18,6 +19,10 @@ export default class CategorySelector extends Component {
 	}
 }
 
-CategorySelector.propTypes = {
-	categories: PropTypes.array.isRequired
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories.categories,
+  }
 }
+
+export default connect(mapStateToProps)(CategorySelector)

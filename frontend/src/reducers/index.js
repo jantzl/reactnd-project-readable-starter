@@ -1,5 +1,4 @@
 import {combineReducers } from 'redux'
-
 import * as types from '../utils/ActionTypes'
 
 const modal = (state = {modalType: null, showModal: false}, action) => {
@@ -14,15 +13,6 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 				modalType: action.modalType,
 				showModal: false
 			}
-		default:
-			return state
-	}	
-}
-
-const selectedCategory = (state = '', action) => {
-	switch (action.type) {
-		case types.SELECT_CATEGORY: 
-			return state
 		default:
 			return state
 	}	
@@ -85,6 +75,28 @@ const posts = (state = initialState, action)  => {
 	}
 }
 
+const catInitialState = {
+	selectedCategory: '', 
+	categories: []
+}
+
+const categories = (state = catInitialState, action)  => {
+	switch (action.type) {
+		case types.SELECT_CATEGORY: 
+			return {
+				...state,
+				selectedCategory: action.selected
+			}
+		case types.RECEIVE_CATEGORIES: 
+			return {
+				...state,
+				categories: action.categories
+			}
+		default: 
+			return state
+	}
+}
+
 function comments (state = {}, action) {
 	switch (action.type) {
 		case types.RECEIVE_COMMENTS: 
@@ -98,7 +110,7 @@ function comments (state = {}, action) {
 const rootReducer = combineReducers({
 	posts, 
 	comments, 
-	selectedCategory,
+	categories,
 	modal,
 })
 

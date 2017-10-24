@@ -12,7 +12,7 @@ export default class CategoryFilter extends Component {
 					<button><FilterLink filter="SHOW_ALL">all</FilterLink></button>
 					{categories.map((cat) => {
 						return (
-							<button><FilterLink filter={cat.path}>{cat.name}</FilterLink></button>
+							<button key={cat.name}><FilterLink filter={cat.path}>{cat.name}</FilterLink></button>
 
 					)}) }
 			</div>

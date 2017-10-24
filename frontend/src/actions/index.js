@@ -28,7 +28,7 @@ export const isLoading = bool => {
 }
 
 export const getPosts = () => dispatch => {
-	dispatch(isLoading(true))
+	//dispatch(isLoading(true))
 	api.fetchAllPosts( posts => {
 		dispatch(receivePosts(posts))
 	})
@@ -62,6 +62,21 @@ export function deletePost ({text}) {
 		type: types.DELETE_POST, text
 	}
 }	
+
+export const receiveCategories = categories => {
+	return {
+		type: types.RECEIVE_CATEGORIES,
+		categories: categories
+	}
+}
+
+export const getCategories = () => dispatch => {
+	//dispatch(isLoading(true))
+	api.fetchCategories().then(( categories => {
+		dispatch(receiveCategories(categories))
+	}))
+	.catch( error => dispatch(fetchFailed(error)))
+}
 
 export function getComments ({text}) {
 	return {
