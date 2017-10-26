@@ -22,7 +22,8 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 const initialState = {
 	isLoading: false, 
 	didInvalidate: false, 
-	itemsById: {}
+	itemsById: {},
+	selectedPost: {}
 }
 
 const posts = (state = initialState, action)  => {
@@ -88,19 +89,6 @@ const categories = (state = catInitialState, action)  => {
 	}
 }
 
-const initStatePost = {
-}
-
-const selectedPost = (state = initStatePost, action) => {
-	switch (action.type) {
-		case types.GET_POST: 
-			//FIXME
-			return state
-		default:
-			return state
-	}
-}
-
 const comments = (state = {}, action) => {
 	switch (action.type) {
 		case types.RECEIVE_COMMENTS: 
@@ -111,11 +99,22 @@ const comments = (state = {}, action) => {
 	}
 }
 
+const errorMessage = (state = null, action) => {
+	switch (action.type) {
+		case types.RECEIVE_ERROR: 
+			return action.error
+		case types.RESET_ERROR: 
+			return null;
+		default: 
+			return state
+	}
+}
+
 const rootReducer = combineReducers({
-	selectedPost,
 	posts, 
 	comments, 
 	categories,
+	errorMessage,
 	modal,
 	form: formReducer,
 })

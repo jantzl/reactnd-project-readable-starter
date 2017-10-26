@@ -18,7 +18,7 @@ class PostModal extends Component {
 		/*
 		.catch(
 			error => console.log('error', error)
-			//error => dispatch(fetchFailed(error))
+			//error => dispatch(receiveError(error))
 		)
 		*/
 		//FIXME - cancel button doesn't cancel post

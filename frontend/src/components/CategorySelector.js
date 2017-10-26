@@ -23,7 +23,7 @@ class CategorySelector extends Component {
 const mapStateToProps = (state) => {
   return {
     categories: state.categories.categories,
-    postCategory: state.selectedPost.category,
+    postCategory: state.posts.selectedPost.category,
   }
 }
 

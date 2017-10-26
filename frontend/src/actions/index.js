@@ -13,26 +13,35 @@ export const receivePosts = posts => {
 	}
 }
 
-export const fetchFailed = error => {
+export const receiveError = error => {
 	return {
-		type: types.FETCH_FAILED, 
+		type: types.RECEIVE_ERROR, 
 		error
 	}
 }
 
+export const resetError = () => {
+	return {
+		type: types.RESET_ERROR, 
+	}
+}
+
+// FIXME remove?
+/*
 export const isLoading = bool => {
 	return {
 		type: types.IS_LOADING,
 		isLoading: bool
 	}
 }
+*/
 
 export const getPosts = () => dispatch => {
 	//dispatch(isLoading(true))
 	api.fetchAllPosts( posts => {
 		dispatch(receivePosts(posts))
 	})
-	.catch( error => dispatch(fetchFailed(error)))
+	.catch( error => dispatch(receiveError(error)))
 }
 
 /*
@@ -64,7 +73,7 @@ export const deletePost = (id) => dispatch => {
 	api.deletePost(id, posts => {
 		dispatch(getPosts())
 	})
-	.catch( error => dispatch(fetchFailed(error)))
+	.catch( error => dispatch(receiveError(error)))
 }	
 
 export const receiveCategories = categories => {
@@ -79,7 +88,7 @@ export const getCategories = () => dispatch => {
 	api.fetchCategories().then(( categories => {
 		dispatch(receiveCategories(categories))
 	}))
-	.catch( error => dispatch(fetchFailed(error)))
+	.catch( error => dispatch(receiveError(error)))
 }
 
 export function getComments ({text}) {
