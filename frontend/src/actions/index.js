@@ -35,11 +35,14 @@ export const getPosts = () => dispatch => {
 	.catch( error => dispatch(fetchFailed(error)))
 }
 
-export function addPost ({text}) {
+/*
+export function addPost ({post}) {
 	return {
-		type: types.ADD_POST, text
+		type: types.ADD_POST, 
+		new_post: post
 	}
 }	
+*/
 
 export const receivePostUpdate = post => {
 	return {

@@ -1,11 +1,29 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
-import CategorySelector from './CategorySelector'
-import { hideModal } from '../actions/'
+import { getPosts,hideModal } from '../actions/'
+
+import * as api from '../utils/api'
+import PostForm from './PostForm'
 
 
 class PostModal extends Component {
+	submit = (values) => {
+		const {closePostModal, fetchData} = this.props
+		api.createPost(values, post => {
+			fetchData()
+			closePostModal()
+		})
+		//FIXME
+		/*
+		.catch(
+			error => console.log('error', error)
+			//error => dispatch(fetchFailed(error))
+		)
+		*/
+		//FIXME - cancel button doesn't cancel post
+	}
+
 	render() {
 		const closePostModal = this.props.closePostModal
 		const postModalOpen = this.props.postModalOpen
@@ -18,31 +36,7 @@ class PostModal extends Component {
         >
           <div>
             <h3>Add a Post</h3>
-            <form>
-              <div>
-              <input
-                className='post-title'
-                type='text'
-                placeholder='your title here'
-              />
-              </div>
-              <div>
-              <input
-                className='post-author'
-                type='text'
-                placeholder='your name here'
-              />
-              </div>
-              <div>
-              <textarea
-                className='post-text'
-                placeholder='your post here'
-              />
-              </div>
-              <CategorySelector />
-							<button>FIXME Post</button>
-							<button onClick={closePostModal}>Cancel</button>
-            </form>
+						<PostForm onSubmit={this.submit} />
           </div>
         </Modal>
 		)
@@ -58,6 +52,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+		fetchData: () => dispatch(getPosts()),
     closePostModal: () => dispatch(hideModal()),
   }
 }

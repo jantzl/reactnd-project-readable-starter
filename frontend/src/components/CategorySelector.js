@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
+//FIXME - make this work with redux-form - read dox
 class CategorySelector extends Component {
 	render() {
 		const categories = this.props.categories
@@ -22,6 +23,7 @@ class CategorySelector extends Component {
 const mapStateToProps = (state) => {
   return {
     categories: state.categories.categories,
+    postCategory: state.selectedPost.category,
   }
 }
 

@@ -30,14 +30,31 @@ export const fetchAllPosts  = (cb) =>
     .then((res) => res.json())
 		.then(data =>  cb(data))
 
-// FIXME needs test - inputs? outputs?
-export const createPost  = () => 
+export const createPost  = (post,cb) => {
+	if (post.id == undefined) {
+		post.id = Math.random().toString(36).substr(-8)
+	}
+
 	fetch(`${api}/posts`, 
-			{headers, method: 'POST', body: ''})
+			{headers, method: 'POST', 
+				body:  JSON.stringify(post)})
     .then((res) => res.json())
-		.then(data => console.log('what to do with this', data))
+		.then(data => cb(data))
+}
+
+// FIXME needs test - inputs? outputs?
+// FIXME needs this function or just use create?
+/*
+export const updatePost  = (id, title, body) => 
+  fetch(`${api}/posts/${id}`, 
+			{ headers, method: 'PUT',
+				body: JSON.stringify({title: title, body: body})})
+    .then((res) => res.json())
+		.then(data => data.posts)
+*/
 
 // FIXME needs test
+// need this?
 export const fetchPostById  = (id) => 
   fetch(`${api}/posts/${id}`, { headers })
     .then((res) => res.json())
@@ -50,13 +67,6 @@ export const voteOnPost  = (id,vote,cb) => {
     .then((res) => res.json())
 		.then(data => cb(data))
 }
-
-// FIXME needs test - inputs? outputs?
-export const updatePost  = (id) => 
-  fetch(`${api}/posts/${id}`, 
-			{ headers, method: 'PUT'})
-    .then((res) => res.json())
-		.then(data => data.posts)
 
 // FIXME needs test
 export const deletePost  = (id) => 

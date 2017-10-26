@@ -1,5 +1,6 @@
 import {combineReducers } from 'redux'
 import * as types from '../utils/ActionTypes'
+import { reducer as formReducer } from 'redux-form'
 
 const modal = (state = {modalType: null, showModal: false}, action) => {
 	switch (action.type) {
@@ -26,8 +27,9 @@ const initialState = {
 
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
+			/*
 		case types.ADD_POST: 
-			if (action.post) {
+			if (action.new_post) {
 				return Object.assign({}, state, {
 					posts: [
 						Object.assign({}, action.post, {
@@ -38,6 +40,7 @@ const posts = (state = initialState, action)  => {
 				})
 			}
 			return state;
+			*/
 		case types.RECEIVE_POSTS: 
 			return {
 				...state,
@@ -89,7 +92,20 @@ const categories = (state = catInitialState, action)  => {
 	}
 }
 
-function comments (state = {}, action) {
+const initStatePost = {
+}
+
+const selectedPost = (state = initStatePost, action) => {
+	switch (action.type) {
+		case types.GET_POST: 
+			//FIXME
+			return state
+		default:
+			return state
+	}
+}
+
+const comments = (state = {}, action) => {
 	switch (action.type) {
 		case types.RECEIVE_COMMENTS: 
 			//FIXME 
@@ -100,10 +116,12 @@ function comments (state = {}, action) {
 }
 
 const rootReducer = combineReducers({
+	selectedPost,
 	posts, 
 	comments, 
 	categories,
 	modal,
+	form: formReducer,
 })
 
 export default rootReducer
