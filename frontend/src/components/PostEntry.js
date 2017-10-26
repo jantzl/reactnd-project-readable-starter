@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { votePost, showModal } from '../actions/'
+import { votePost, deletePost, showModal } from '../actions/'
 import PostModal from './PostModal'
 
 class PostEntry extends Component {
@@ -14,6 +14,7 @@ class PostEntry extends Component {
 	render () {
 		const post = this.props.post
 		const vote = this.props.vote
+		const remove = this.props.remove
 		const openModal = this.props.openModal
 		return (
 			<tr> 
@@ -29,7 +30,7 @@ class PostEntry extends Component {
 					<Button bsSize="xsmall" data-id={post.id} onClick={() => openModal(post.id)}>
 						Edit <Glyphicon glyph="edit"/>
 					</Button>
-					<Button bsSize="xsmall" data-id={post.id}>
+					<Button bsSize="xsmall" data-id={post.id} onClick={() => remove(post.id)}>
 						Delete <Glyphicon glyph="remove-circle"/>
 					</Button>
 				</td>
@@ -50,6 +51,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
 		openModal: (id) => dispatch(showModal(id)),
     vote: (id,vote) => dispatch(votePost(id,vote)),
+    remove: (id) => dispatch(deletePost(id)),
   }
 }
 

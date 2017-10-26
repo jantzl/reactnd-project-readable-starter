@@ -61,10 +61,6 @@ const posts = (state = initialState, action)  => {
 			//const { post } = action
 			//FIXME 
 			return state
-		case types.DELETE_POST: 
-			//const { post } = action
-			//FIXME 
-			return state;
 		default: 
 			return state
 	}

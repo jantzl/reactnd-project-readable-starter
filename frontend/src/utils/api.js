@@ -12,7 +12,6 @@ const headers = {
 }
 
 // ------ category functions ---------
-// FIXME - test
 export const fetchCategories  = () => 
   fetch(`${api}/categories`, { headers })
     .then((res) => res.json())
@@ -32,7 +31,8 @@ export const fetchAllPosts  = (cb) =>
 
 export const createPost  = (post,cb) => {
 	if (post.id == undefined) {
-		post.id = Math.random().toString(36).substr(-8)
+		post.id = Math.random().toString(36).substring(2) 
+               + (new Date()).getTime().toString(36);
 	}
 
 	fetch(`${api}/posts`, 
@@ -68,11 +68,16 @@ export const voteOnPost  = (id,vote,cb) => {
 		.then(data => cb(data))
 }
 
-// FIXME needs test
-export const deletePost  = (id) => 
+export const deletePost = (id, cb) => 
   fetch(`${api}/posts/${id}`, { headers, method: 'DELETE' })
-    .then((res) => res.json())
-		.then(data => data.posts)
+    .then((res) => {
+			if (!res.ok) {
+				throw res.statusText
+			}
+			res.json()
+
+		})
+		.then(() => cb())
 
 // ------ comment functions ---------
 // looks good GET

@@ -60,10 +60,11 @@ export const votePost = (id, vote) => dispatch => {
 	api.voteOnPost(id, vote, (post) => {dispatch(receivePostUpdate(post))})
 }	
 
-export function deletePost ({text}) {
-	return {
-		type: types.DELETE_POST, text
-	}
+export const deletePost = (id) => dispatch => {
+	api.deletePost(id, posts => {
+		dispatch(getPosts())
+	})
+	.catch( error => dispatch(fetchFailed(error)))
 }	
 
 export const receiveCategories = categories => {
