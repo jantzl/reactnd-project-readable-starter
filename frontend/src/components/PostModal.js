@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
-import { getPosts,hideModal } from '../actions/'
+import { getPosts,hideModal,receiveError } from '../actions/'
 
 import * as api from '../utils/api'
 import PostForm from './PostForm'
@@ -9,19 +9,16 @@ import PostForm from './PostForm'
 
 class PostModal extends Component {
 	submit = (values) => {
-		const {closePostModal, fetchData} = this.props
-		api.createPost(values, post => {
+		const {closePostModal, fetchData, showError} = this.props
+		api.createPost(values)
+		.then(() => {
+		//FIXME - the submitted form loses comment info - probably shouldn't fetch here
 			fetchData()
 			closePostModal()
 		})
-		//FIXME
-		/*
 		.catch(
-			error => console.log('error', error)
-			//error => dispatch(receiveError(error))
+			error => showError(error)
 		)
-		*/
-		//FIXME - cancel button doesn't cancel post
 	}
 
 	render() {
@@ -44,7 +41,6 @@ class PostModal extends Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log('change state', state)
   return {
     postModalOpen: state.modal.showModal
   }
@@ -54,6 +50,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
 		fetchData: () => dispatch(getPosts()),
     closePostModal: () => dispatch(hideModal()),
+		showError: (error) => dispatch(receiveError(error)),
   }
 }
 

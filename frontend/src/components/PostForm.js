@@ -9,7 +9,7 @@ let PostForm = props => {
 	const handleSubmit = props.handleSubmit
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form>
 			<div>
 				<Field name="title" component="input" type="text" placeholder="your title here" />
 			</div>
@@ -20,7 +20,7 @@ let PostForm = props => {
 				<Field name="body" component="input" type="textarea" placeholder="your post here" />
 			</div>
 			<CategorySelector />
-			<button>Post</button>
+			<button onClick={handleSubmit}>Post</button>
 			<button onClick={closePostModal}>Cancel</button>
 		</form>
 	)
