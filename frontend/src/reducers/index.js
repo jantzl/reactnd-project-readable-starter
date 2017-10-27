@@ -51,6 +51,11 @@ const posts = (state = initialState, action)  => {
 				}
 			} 
 			return state
+		case types.HIDE_MODAL: 
+			return {
+				...state,
+				selectedPost: {}
+			}
 		case types.RECEIVE_POSTS: 
 			return {
 				...state,
