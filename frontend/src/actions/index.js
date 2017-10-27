@@ -91,10 +91,18 @@ export const getCategories = () => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }
 
-export function getComments ({text}) {
+export const receiveComments = (id, comments) => {
 	return {
-		type: types.GET_COMMENTS, text
+		type: types.RECEIVE_COMMENTS,
+		id: id,
+		comments: comments,
 	}
+}
+
+export const getComments = (id) => dispatch => {
+	api.fetchCommentsByPost(id)
+	.then( comments => { dispatch(receiveComments(id,comments)) })
+	.catch( error => dispatch(receiveError(error)))
 }	
 
 export function addComment ({postId, commentText}) {

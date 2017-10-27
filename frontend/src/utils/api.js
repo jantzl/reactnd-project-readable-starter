@@ -80,11 +80,15 @@ export const deletePost = (id, cb) =>
 		.then(() => cb())
 
 // ------ comment functions ---------
-// looks good GET
-export const fetchCommentsByPost  = (post_id) => 
-  fetch(`${api}/posts/${post_id}/comments`, { headers })
-    .then((res) => res.json())
-		.then(data => data.comments)
+export const fetchCommentsByPost  = (post_id) => {
+	return new Promise(
+		function (resolve, reject) {
+			fetch(`${api}/posts/${post_id}/comments`, { headers })
+			.then((res) => res.json())
+			.then(data => resolve(data))
+		}
+	)
+}
 
 // FIXME needs test - inputs? outputs?
 export const addComment  = () => 

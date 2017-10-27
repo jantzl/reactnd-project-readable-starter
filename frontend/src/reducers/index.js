@@ -23,6 +23,7 @@ const initialState = {
 	isLoading: false, 
 	didInvalidate: false, 
 	itemsById: {},
+	commentsById: {},
 	selectedPost: {}
 }
 
@@ -49,6 +50,18 @@ const posts = (state = initialState, action)  => {
 					obj[post.id] = post
 					return obj
 				}, {}),
+			}
+		case types.RECEIVE_COMMENTS: 
+			return {
+				...state,
+				itemsById: {
+					...state['itemsById'],
+					[action.id]: {
+						...state['itemsById'][action.id],
+						numberOfComments: action.comments.length,
+						comments: action.comments
+					}
+				}, 
 			}
 		case types.RECEIVE_POST_UPDATE: 
 			return {
@@ -89,16 +102,6 @@ const categories = (state = catInitialState, action)  => {
 	}
 }
 
-const comments = (state = {}, action) => {
-	switch (action.type) {
-		case types.RECEIVE_COMMENTS: 
-			//FIXME 
-			return state;
-		default: 
-			return state
-	}
-}
-
 const errorMessage = (state = null, action) => {
 	switch (action.type) {
 		case types.RECEIVE_ERROR: 
@@ -112,7 +115,6 @@ const errorMessage = (state = null, action) => {
 
 const rootReducer = combineReducers({
 	posts, 
-	comments, 
 	categories,
 	errorMessage,
 	modal,

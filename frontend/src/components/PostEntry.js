@@ -3,13 +3,19 @@ import PropTypes from 'prop-types'
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { votePost, deletePost, showModal } from '../actions/'
+import { getComments, votePost, deletePost, showModal } from '../actions/'
 import PostModal from './PostModal'
 
 class PostEntry extends Component {
 	static propTypes = {
 		post: PropTypes.object.isRequired,
   }
+
+	componentDidMount() {
+		const { post, fetchData } = this.props
+
+    fetchData(post.id)
+	}
 
 	render () {
 		const post = this.props.post
@@ -20,7 +26,7 @@ class PostEntry extends Component {
 			<tr> 
 				<td><NavLink to={'/'+post.category + '/' + post.id}>{post.title}</NavLink></td>
 				<td>{post.author}</td>
-				<td>FIXME</td>
+				<td>{post.numberOfComments}</td>
 				<td>{post.voteScore}</td>
 				<td>
 					<Button onClick={() => vote(post.id, 'upVote')} bsSize="xsmall" data-id={post.id}>Up Vote <Glyphicon glyph="arrow-up"/></Button>
@@ -52,6 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 		openModal: (id) => dispatch(showModal(id)),
     vote: (id,vote) => dispatch(votePost(id,vote)),
     remove: (id) => dispatch(deletePost(id)),
+	  fetchData: (id) => dispatch(getComments(id))
   }
 }
 
