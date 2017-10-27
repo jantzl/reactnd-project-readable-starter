@@ -23,12 +23,12 @@ const initialState = {
 	isLoading: false, 
 	didInvalidate: false, 
 	itemsById: {},
-	commentsById: {},
 	selectedPost: {}
 }
 
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
+			//FIXME maybe use this instead of refresh?
 			/*
 		case types.ADD_POST: 
 			if (action.new_post) {
@@ -43,6 +43,14 @@ const posts = (state = initialState, action)  => {
 			}
 			return state;
 			*/
+		case types.SHOW_MODAL: 
+			if (action.id != null) {
+				return {
+					...state,
+					selectedPost: state['itemsById'][action.id],
+				}
+			} 
+			return state
 		case types.RECEIVE_POSTS: 
 			return {
 				...state,

@@ -24,6 +24,7 @@ class PostModal extends Component {
 	render() {
 		const closePostModal = this.props.closePostModal
 		const postModalOpen = this.props.postModalOpen
+		const selectedPost = this.props.selectedPost
 
 		return (
 				<Modal
@@ -33,7 +34,7 @@ class PostModal extends Component {
         >
           <div>
             <h3>Add a Post</h3>
-						<PostForm onSubmit={this.submit} />
+						<PostForm initialValues={selectedPost} onSubmit={this.submit} />
           </div>
         </Modal>
 		)
@@ -42,7 +43,8 @@ class PostModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    postModalOpen: state.modal.showModal
+    postModalOpen: state.modal.showModal,
+    selectedPost: state.posts.selectedPost,
   }
 }
 
