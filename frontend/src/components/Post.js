@@ -11,10 +11,8 @@ class Post extends Component {
 		const { categories } = this.props
 
     return (
-      <div className="container">
-        <header className="nav">
-					<h1 className="App-title">Post and Comment</h1>
-        </header>
+      <div>
+				<h4>Post </h4>
 
 				<div>FIXME</div>
       </div>

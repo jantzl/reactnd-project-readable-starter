@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import CategoryFilter from './CategoryFilter'
 import PostList from './PostList'
+import Post from './Post'
 import { getCategories, resetError } from '../actions/'
 import './App.css'
 
@@ -33,17 +35,24 @@ class App extends Component {
 		const { categories, errors } = this.props
 
     return (
-      <div className="container">
-        <header className="nav">
-					<h1 className="App-title">Post and Comment</h1>
-        </header>
-				<hr/>
-				{ this.renderErrorMessage() }
+			<Router>
+				<div className="container">
+					<header className="nav">
+						<h1 className="App-title">Post and Comment</h1>
+					</header>
+					<hr/>
+					{ this.renderErrorMessage() }
 
-				<CategoryFilter categories={categories} />
+					<CategoryFilter categories={categories} />
 
-				<PostList />
-      </div>
+					<Switch>
+						<Route exact name="index" path="/" component={PostList} />
+						<Route path="/:category/:post_id" component={Post} />
+						<Route path="/:category" component={PostList} />
+					</Switch>	
+
+				</div>
+      </Router>
     )
   }
 }
