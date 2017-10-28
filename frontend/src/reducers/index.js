@@ -20,7 +20,6 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 }
 
 const initialState = {
-	isLoading: false, 
 	didInvalidate: false, 
 	itemsById: {},
 	selectedPost: {}
@@ -28,21 +27,6 @@ const initialState = {
 
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
-			//FIXME maybe use this instead of refresh?
-			/*
-		case types.ADD_POST: 
-			if (action.new_post) {
-				return Object.assign({}, state, {
-					posts: [
-						Object.assign({}, action.post, {
-							//FIXME complete this
-						}),
-						...state.posts,
-					],
-				})
-			}
-			return state;
-			*/
 		case types.SHOW_MODAL: 
 			if (action.id != null) {
 				return {
@@ -51,6 +35,14 @@ const posts = (state = initialState, action)  => {
 				}
 			} 
 			return state
+		case types.RECEIVE_POST: 
+			return {
+				...state,
+				itemsById: {
+					[action.post.id]: action.post,
+				}
+
+			}
 		case types.HIDE_MODAL: 
 			return {
 				...state,
@@ -65,6 +57,7 @@ const posts = (state = initialState, action)  => {
 				}, {}),
 			}
 		case types.RECEIVE_COMMENTS: 
+			console.log('receiving comments ', action.comments)
 			return {
 				...state,
 				itemsById: {
@@ -84,10 +77,6 @@ const posts = (state = initialState, action)  => {
 					[action.post.id]: action.post
 				}, 
 			}
-		case types.UPDATE_POST: 
-			//const { post } = action
-			//FIXME 
-			return state
 		default: 
 			return state
 	}

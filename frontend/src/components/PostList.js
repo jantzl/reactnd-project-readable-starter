@@ -10,7 +10,6 @@ class PostList extends Component {
 	static propTypes = {
 		selectedCategory: PropTypes.string.isRequired,
 		posts: PropTypes.array.isRequired,
-		isLoading: PropTypes.bool.isRequired,
 	}
 
 	componentDidMount() {
@@ -19,7 +18,7 @@ class PostList extends Component {
 	}
 
 	render () { 
-		const { selectedCategory, posts, isLoading, openModal } = this.props
+		const { selectedCategory, posts, openModal } = this.props
 		const isEmpty = posts.length === 0
 
 		// if no posts, show loading state
@@ -67,7 +66,6 @@ const mapStateToProps = (state) => {
 	return {
 		selectedCategory: state.categories.selectedCategory,
 		posts: Object.values(state.posts.itemsById), 
-		isLoading: state.posts.isLoading
 	}
 }
 

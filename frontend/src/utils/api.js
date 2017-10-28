@@ -46,23 +46,15 @@ export const createPost  = (post) => {
 	)
 }
 
-// FIXME needs test - inputs? outputs?
-// FIXME needs this function or just use create?
-/*
-export const updatePost  = (id, title, body) => 
-  fetch(`${api}/posts/${id}`, 
-			{ headers, method: 'PUT',
-				body: JSON.stringify({title: title, body: body})})
-    .then((res) => res.json())
-		.then(data => data.posts)
-*/
-
-// FIXME needs test
-// need this?
-export const fetchPostById  = (id) => 
-  fetch(`${api}/posts/${id}`, { headers })
-    .then((res) => res.json())
-		.then(data => data.posts)
+export const fetchPostById  = (id) => {
+	return new Promise (
+		function (resolve, reject) {
+			fetch(`${api}/posts/${id}`, { headers })
+				.then((res) => res.json())
+				.then(data => resolve(data))
+		}
+	)
+}
 
 export const voteOnPost  = (id,vote,cb) => {
   fetch(`${api}/posts/${id}`, 

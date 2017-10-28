@@ -1,7 +1,5 @@
-export const REQUEST_POST = 'REQUEST_POST'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const GET_POST = 'GET_POST'
-export const UPDATE_POST = 'UPDATE_POST'
+export const RECEIVE_POST = 'RECEIVE_POST'
 export const RECEIVE_POST_UPDATE = 'RECEIVE_POST_UPDATE'
 export const VOTE_POST = 'VOTE_POST'
 export const ADD_COMMENT = 'ADD_COMMENT'

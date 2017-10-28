@@ -1,11 +1,6 @@
 import * as api from '../utils/api'
 import * as types from '../utils/ActionTypes'
 
-export const requestPost = post => ({
-	type: types.REQUEST_POST,
-	post: post
-})	
-
 export const receivePosts = posts => {
 	return {
 		type: types.RECEIVE_POSTS,
@@ -26,32 +21,12 @@ export const resetError = () => {
 	}
 }
 
-// FIXME remove?
-/*
-export const isLoading = bool => {
-	return {
-		type: types.IS_LOADING,
-		isLoading: bool
-	}
-}
-*/
-
 export const getPosts = () => dispatch => {
-	//dispatch(isLoading(true))
 	api.fetchAllPosts( posts => {
 		dispatch(receivePosts(posts))
 	})
 	.catch( error => dispatch(receiveError(error)))
 }
-
-/*
-export function addPost ({post}) {
-	return {
-		type: types.ADD_POST, 
-		new_post: post
-	}
-}	
-*/
 
 export const receivePostUpdate = post => {
 	return {
@@ -59,10 +34,16 @@ export const receivePostUpdate = post => {
 	}
 }	
 
-export const updatePost = (post) => dispatch => {
-	return {
-		type: types.UPDATE_POST, post
-	}
+export const receivePost = post => ({
+	type: types.RECEIVE_POST,
+	post: post
+})	
+
+export const getPost = (id) => dispatch => {
+	api.fetchPostById(id)
+	.then( post => dispatch(receivePost(post)))
+	.then( dispatch(getComments(id)))
+	.catch( error => dispatch(receiveError(error)))
 }	
 
 export const votePost = (id, vote) => dispatch => {
@@ -84,7 +65,6 @@ export const receiveCategories = categories => {
 }
 
 export const getCategories = () => dispatch => {
-	//dispatch(isLoading(true))
 	api.fetchCategories().then(( categories => {
 		dispatch(receiveCategories(categories))
 	}))

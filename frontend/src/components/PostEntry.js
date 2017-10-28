@@ -47,9 +47,7 @@ class PostEntry extends Component {
 
 
 const mapStateToProps = (state) => {
-	//FIXME - connect response from vote (?)
   return {
-    //post: state.post
   }
 }
 
