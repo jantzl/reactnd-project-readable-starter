@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 let PostForm = props => {
 	const closePostModal = props.closePostModal
-	const postModalOpen = props.postModalOpen
 	const handleSubmit = props.handleSubmit
 	const categories = props.categories
 

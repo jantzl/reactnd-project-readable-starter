@@ -8,7 +8,7 @@ import PostForm from './PostForm'
 
 class PostModal extends Component {
 	submit = (values) => {
-		const {createPost, closePostModal} = this.props
+		const { createPost } = this.props
 		createPost(values)
 	}
 

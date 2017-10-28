@@ -4,7 +4,6 @@ import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { getComments, votePost, deletePost, showModal } from '../actions/'
-import PostModal from './PostModal'
 
 class PostEntry extends Component {
 	static propTypes = {

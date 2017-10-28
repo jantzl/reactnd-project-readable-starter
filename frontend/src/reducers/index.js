@@ -87,9 +87,9 @@ const posts = (state = initialState, action)  => {
 	}
 }
 
+//FIXME - clean up 
 const catInitialState = {
-	selectedCategory: '', 
-	categories: []
+	categories: [],
 }
 
 const categories = (state = catInitialState, action)  => {

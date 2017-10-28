@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Glyphicon, ProgressBar } from 'react-bootstrap'
+import { Button, Glyphicon } from 'react-bootstrap'
 import { getPost, votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
 import NotFound from './NotFound'

@@ -17,28 +17,27 @@ class PostList extends Component {
 	}
 
 	static propTypes = {
-		selectedCategory: PropTypes.string.isRequired,
 		posts: PropTypes.array.isRequired,
 	}
 
 	sortDate = () => {
 		this.setState({
-			date_icon: this.state.date_icon == neutral ?  down : 
-								(this.state.date_icon == down ? up : neutral),
+			date_icon: this.state.date_icon === neutral ?  down : 
+								(this.state.date_icon === down ? up : neutral),
 		})
 		this.setState({ score_icon: neutral })
 	}
 
 	sortScore = () => {
 		this.setState({
-			score_icon: this.state.score_icon == neutral ?  down : 
-									(this.state.score_icon == down ? up : neutral),
+			score_icon: this.state.score_icon === neutral ?  down : 
+									(this.state.score_icon === down ? up : neutral),
 		})
 		this.setState({ date_icon: neutral })
 	}
 
 	render () { 
-		const { selectedCategory, posts, openModal } = this.props
+		const { posts, openModal } = this.props
 		const isEmpty = posts.length === 0
 		const filter = this.props.match.params.category
 
@@ -72,25 +71,26 @@ class PostList extends Component {
 					<tbody>
 						{ posts.filter((post => {
 								if (filter)  {
-									return post.category == filter
+									return post.category === filter
 								} 
 								return true
 							}))
 							.sort((a,b) => {
 								//console.log( ' a is ',a)
 								//console.log( ' b is ',b)
-								if (this.state.date_icon == down) {
+								if (this.state.date_icon === down) {
 									return b.timestamp - a.timestamp
 								}
-								if (this.state.date_icon == up) {
+								if (this.state.date_icon === up) {
 									return a.timestamp - b.timestamp
 								}
-								if (this.state.score_icon == down) {
+								if (this.state.score_icon === down) {
 									return b.voteScore - a.voteScore
 								}
-								if (this.state.score_icon == up) {
+								if (this.state.score_icon === up) {
 									return a.voteScore - b.voteScore
 								}
+								return 1;
 							})
 							.map((post, index) => {
 							return (
@@ -107,7 +107,6 @@ class PostList extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		selectedCategory: state.categories.selectedCategory,
 		posts: Object.values(state.posts.itemsById), 
 	}
 }
