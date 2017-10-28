@@ -27,6 +27,7 @@ const initialState = {
 
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
+		//FIXME - refactor this like post component
 		case types.SHOW_MODAL: 
 			if (action.id != null) {
 				return {
@@ -35,13 +36,14 @@ const posts = (state = initialState, action)  => {
 				}
 			} 
 			return state
+		case types.ADD_POST: 
 		case types.RECEIVE_POST: 
 			return {
 				...state,
 				itemsById: {
+					...state['itemsById'],
 					[action.post.id]: action.post,
 				}
-
 			}
 		case types.HIDE_MODAL: 
 			return {

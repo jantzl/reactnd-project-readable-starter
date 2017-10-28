@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Table, Button, Glyphicon, ProgressBar } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getPosts, showModal } from '../actions/'
+import { showModal } from '../actions/'
 import PostEntry from './PostEntry'
 import PostModal from './PostModal'
 
@@ -10,11 +10,6 @@ class PostList extends Component {
 	static propTypes = {
 		selectedCategory: PropTypes.string.isRequired,
 		posts: PropTypes.array.isRequired,
-	}
-
-	componentDidMount() {
-		const { selectedCategory, fetchData } = this.props
-		fetchData()
 	}
 
 	render () { 
@@ -72,7 +67,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
 		openModal: () => dispatch(showModal()),
-		fetchData: () => dispatch(getPosts()),
 	}
 }
 

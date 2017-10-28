@@ -4,14 +4,10 @@ import { connect } from 'react-redux'
 import CategoryFilter from './CategoryFilter'
 import PostList from './PostList'
 import Post from './Post'
-import { getCategories, resetError } from '../actions/'
+import { resetError } from '../actions/'
 import './App.css'
 
 class App extends Component {
-	componentDidMount() {
-    const { fetchData } = this.props
-    fetchData()
-	}
 
 	renderErrorMessage() {
 		const { errorMessage, resetErrorMessage } = this.props
@@ -66,7 +62,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchData: () => dispatch(getCategories()),
 		resetErrorMessage: () => dispatch(resetError()),
   }
 }

@@ -7,6 +7,7 @@ import { createLogger } from 'redux-logger'
 import reducer from './reducers'
 import { Provider } from 'react-redux'
 import  App from './components/App'
+import { getPosts, getCategories } from './actions/'
 import './index.css'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
@@ -17,6 +18,10 @@ const store = createStore(
 		applyMiddleware(thunk, createLogger())
 	)
 )
+
+// load up the data
+store.dispatch(getCategories())
+store.dispatch(getPosts())
 
 render(
 		<Provider store={store}>

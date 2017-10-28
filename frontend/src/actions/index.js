@@ -1,13 +1,6 @@
 import * as api from '../utils/api'
 import * as types from '../utils/ActionTypes'
 
-export const receivePosts = posts => {
-	return {
-		type: types.RECEIVE_POSTS,
-		posts: posts
-	}
-}
-
 export const receiveError = error => {
 	return {
 		type: types.RECEIVE_ERROR, 
@@ -21,6 +14,29 @@ export const resetError = () => {
 	}
 }
 
+export const addPost = post => {
+	return {
+		type: types.ADD_POST,
+		post: post
+	}
+}
+
+export const createPost = post => dispatch => {
+	api.createPost(post)
+	.then((res) => {
+		dispatch(addPost(res))
+		dispatch(hideModal())
+	})
+	.catch( error => dispatch(receiveError(error)))
+}
+
+export const receivePosts = posts => {
+	return {
+		type: types.RECEIVE_POSTS,
+		posts: posts
+	}
+}
+
 export const getPosts = () => dispatch => {
 	api.fetchAllPosts( posts => {
 		dispatch(receivePosts(posts))
@@ -28,10 +44,11 @@ export const getPosts = () => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }
 
-export const receivePostUpdate = post => {
-	return {
-		type: types.RECEIVE_POST_UPDATE, post
-	}
+export const getPost = (id) => dispatch => {
+	api.fetchPostById(id)
+	.then( post => dispatch(receivePost(post)))
+	.then( dispatch(getComments(id)))
+	.catch( error => dispatch(receiveError(error)))
 }	
 
 export const receivePost = post => ({
@@ -39,11 +56,10 @@ export const receivePost = post => ({
 	post: post
 })	
 
-export const getPost = (id) => dispatch => {
-	api.fetchPostById(id)
-	.then( post => dispatch(receivePost(post)))
-	.then( dispatch(getComments(id)))
-	.catch( error => dispatch(receiveError(error)))
+export const receivePostUpdate = post => {
+	return {
+		type: types.RECEIVE_POST_UPDATE, post
+	}
 }	
 
 export const votePost = (id, vote) => dispatch => {

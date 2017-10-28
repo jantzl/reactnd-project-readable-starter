@@ -1,28 +1,22 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { connect, getState } from 'react-redux'
 import { Button, Glyphicon, ProgressBar } from 'react-bootstrap'
 import { getPost, votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
+import NotFound from './NotFound'
 
 
 class Post extends Component {
-	componentDidMount() {
-    const post_id = this.props.match.params.post_id
-		const { fetchData } = this.props
-    fetchData(post_id)
-	}
 
   render() {
-		const { posts,vote,openModal,remove } = this.props
-		const isEmpty = posts.length === 0
+		const { post,vote,openModal,remove } = this.props
 
-		if (isEmpty) {
+		if (!post) {
 			return (
-				<ProgressBar active now={100} />
-			);
+				<NotFound />
+			)
 		}
 
-		const post = posts[0]
     return (
       <div>
 				<h4><b>{post.title}</b> [category:{post.category}]</h4> 
@@ -49,9 +43,9 @@ class Post extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
-		posts: Object.values(state.posts.itemsById),
+		post: state.posts.itemsById[ownProps.match.params.post_id],
   }
 }
 
