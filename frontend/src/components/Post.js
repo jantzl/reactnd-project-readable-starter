@@ -5,6 +5,7 @@ import { getPost, votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
 import NotFound from './NotFound'
 import PostModal from './PostModal'
+import CommentModal from './CommentModal'
 import * as globalConsts from '../utils/GlobalConsts'
 
 class Post extends Component {
@@ -40,6 +41,7 @@ class Post extends Component {
 				<br/>
 				<Comments comments={post.comments} />
 			  <PostModal />
+			  <CommentModal />
       </div>
     )
   }

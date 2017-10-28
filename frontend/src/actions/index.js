@@ -101,8 +101,9 @@ export const getComments = (id) => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }	
 
-export function addComment ({postId, commentText}) {
-	//FIXME need generate id? 
+export function createComment ({postId, commentText}) {
+	console.log('do create here')
+	/*
 	return {
 		type: types.ADD_COMMENT,
 		payload: {
@@ -110,6 +111,7 @@ export function addComment ({postId, commentText}) {
 			commentText
 		}
 	}
+	*/
 }	
 
 export const showModal = (id=null, type) => {

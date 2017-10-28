@@ -22,7 +22,8 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 const initialState = {
 	didInvalidate: false, 
 	itemsById: {},
-	selectedPost: {}
+	selectedPost: {},
+	selectedComments: {},
 }
 
 const posts = (state = initialState, action)  => {
@@ -59,7 +60,6 @@ const posts = (state = initialState, action)  => {
 				}, {}),
 			}
 		case types.RECEIVE_COMMENTS: 
-			console.log('receiving comments ', action.comments)
 			return {
 				...state,
 				itemsById: {
