@@ -4,7 +4,7 @@ import { Button, Glyphicon } from 'react-bootstrap'
 import { getPost, votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
 import NotFound from './NotFound'
-
+import PostModal from './PostModal'
 
 class Post extends Component {
 
@@ -38,6 +38,7 @@ class Post extends Component {
 				</div>
 				<br/>
 				<Comments comments={post.comments} />
+			  <PostModal />
       </div>
     )
   }
