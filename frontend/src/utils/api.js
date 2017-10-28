@@ -32,7 +32,7 @@ export const fetchAllPosts  = (cb) =>
 export const createPost  = (post) => {
 	return new Promise(
 		function (resolve, reject) {
-			if (post.id == undefined) {
+			if (post.id === undefined) {
 				post.id = Math.random().toString(36).substring(2) 
 									 + (new Date()).getTime().toString(36);
 			}

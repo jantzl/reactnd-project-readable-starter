@@ -15,6 +15,7 @@ class PostList extends Component {
 	render () { 
 		const { selectedCategory, posts, openModal } = this.props
 		const isEmpty = posts.length === 0
+		const filter = this.props.match.params.category
 
 		// if no posts, show loading state
 		if (isEmpty) {
@@ -44,7 +45,10 @@ class PostList extends Component {
 						</tr>
 					</thead>
 					<tbody>
-						{ posts.map((post, index) => {
+						{ posts.filter((post => {
+							return post.category == filter
+							}))
+							.map((post, index) => {
 							return (
 								<PostEntry key={post.id} post={post} />
 							);
