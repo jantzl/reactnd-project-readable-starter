@@ -28,7 +28,7 @@ class App extends Component {
 	}
 
   render() {
-		const { categories, errors } = this.props
+		const { categories } = this.props
 
     return (
 			<Router>

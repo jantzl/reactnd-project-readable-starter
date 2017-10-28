@@ -1,4 +1,4 @@
-const api = "http://localhost:3001";
+const api = "http://localhost:3001"
 
 // Generate a unique token for storing your bookshelf data on the backend server.
 let token = localStorage.token
@@ -34,8 +34,9 @@ export const createPost  = (post) => {
 		function (resolve, reject) {
 			if (post.id === undefined) {
 				post.id = Math.random().toString(36).substring(2) 
-									 + (new Date()).getTime().toString(36);
+									 + (new Date()).getTime().toString(36)
 			}
+			post.timestamp = Date.now()
 
 			fetch(`${api}/posts`, 
 					{headers, method: 'POST', 

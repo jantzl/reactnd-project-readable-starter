@@ -6,10 +6,35 @@ import { showModal } from '../actions/'
 import PostEntry from './PostEntry'
 import PostModal from './PostModal'
 
+const up = 'chevron-up'
+const down = 'chevron-down'
+const neutral = 'minus'
+
 class PostList extends Component {
+	state = {
+		score_icon: neutral,
+		date_icon: up,
+	}
+
 	static propTypes = {
 		selectedCategory: PropTypes.string.isRequired,
 		posts: PropTypes.array.isRequired,
+	}
+
+	sortDate = () => {
+		this.setState({
+			date_icon: this.state.date_icon == neutral ?  down : 
+								(this.state.date_icon == down ? up : neutral),
+		})
+		this.setState({ score_icon: neutral })
+	}
+
+	sortScore = () => {
+		this.setState({
+			score_icon: this.state.score_icon == neutral ?  down : 
+									(this.state.score_icon == down ? up : neutral),
+		})
+		this.setState({ date_icon: neutral })
 	}
 
 	render () { 
@@ -27,8 +52,8 @@ class PostList extends Component {
 		return (
 			<div className='post-list-container'>
 				<div className='post-fixme'>
-          <Button bsSize="small">FIXME Sort Date</Button>
-          <Button bsSize="small">FIXME Sort Score</Button>
+          <Button bsSize="small" onClick={this.sortDate} >Sort Date <Glyphicon glyph={this.state.date_icon} /></Button>
+          <Button bsSize="small" onClick={this.sortScore} >Sort Score <Glyphicon glyph={this.state.score_icon} /></Button>
           <Button bsSize="small" onClick={openModal}>
             Create Post <Glyphicon glyph="plus-sign"/>
           </Button>
@@ -46,8 +71,27 @@ class PostList extends Component {
 					</thead>
 					<tbody>
 						{ posts.filter((post => {
-							return post.category == filter
+								if (filter)  {
+									return post.category == filter
+								} 
+								return true
 							}))
+							.sort((a,b) => {
+								//console.log( ' a is ',a)
+								//console.log( ' b is ',b)
+								if (this.state.date_icon == down) {
+									return b.timestamp - a.timestamp
+								}
+								if (this.state.date_icon == up) {
+									return a.timestamp - b.timestamp
+								}
+								if (this.state.score_icon == down) {
+									return b.voteScore - a.voteScore
+								}
+								if (this.state.score_icon == up) {
+									return a.voteScore - b.voteScore
+								}
+							})
 							.map((post, index) => {
 							return (
 								<PostEntry key={post.id} post={post} />

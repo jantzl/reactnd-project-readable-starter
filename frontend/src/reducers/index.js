@@ -76,7 +76,10 @@ const posts = (state = initialState, action)  => {
 				...state,
 				itemsById: {
 					...state['itemsById'],
-					[action.post.id]: action.post
+					[action.post.id]: {
+						...state['itemsById'][action.post.id],
+						voteScore: action.post.voteScore
+					}
 				}, 
 			}
 		default: 
