@@ -4,6 +4,7 @@ import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { getComments, votePost, deletePost, showModal } from '../actions/'
+import * as globalConsts from '../utils/GlobalConsts'
 
 class PostEntry extends Component {
 	static propTypes = {
@@ -52,7 +53,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-		openModal: (id) => dispatch(showModal(id)),
+		openModal: (id) => dispatch(showModal(id, globalConsts.POST_MODAL)),
     vote: (id,vote) => dispatch(votePost(id,vote)),
     remove: (id) => dispatch(deletePost(id)),
 	  fetchData: (id) => dispatch(getComments(id))

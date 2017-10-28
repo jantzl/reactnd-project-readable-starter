@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux'
 import { createPost, hideModal } from '../actions/'
+import * as globalConsts from '../utils/GlobalConsts'
 
 import PostForm from './PostForm'
 
@@ -13,13 +14,12 @@ class PostModal extends Component {
 	}
 
 	render() {
-		const closePostModal = this.props.closePostModal
-		const postModalOpen = this.props.postModalOpen
-		const selectedPost = this.props.selectedPost
+		const { postModalOpen, modalType, closePostModal, selectedPost } = this.props
+		const showModal = postModalOpen && modalType === globalConsts.POST_MODAL
 
 		return (
 				<Modal
-          isOpen={postModalOpen}
+          isOpen={showModal}
           onRequestClose={closePostModal}
           contentLabel='Post Modal'
         >
@@ -35,6 +35,7 @@ class PostModal extends Component {
 const mapStateToProps = (state) => {
   return {
     postModalOpen: state.modal.showModal,
+    modalType: state.modal.modalType,
     selectedPost: state.posts.selectedPost,
   }
 }

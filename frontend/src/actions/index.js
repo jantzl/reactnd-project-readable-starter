@@ -112,10 +112,11 @@ export function addComment ({postId, commentText}) {
 	}
 }	
 
-export const showModal = (id=null) => {
+export const showModal = (id=null, type) => {
 	return {
 		type: types.SHOW_MODAL, 
-		id: id
+		id: id, 
+		modalType: type,
 	}
 }
 

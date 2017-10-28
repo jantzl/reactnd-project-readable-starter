@@ -5,11 +5,12 @@ import { getPost, votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
 import NotFound from './NotFound'
 import PostModal from './PostModal'
+import * as globalConsts from '../utils/GlobalConsts'
 
 class Post extends Component {
 
   render() {
-		const { post,vote,openModal,remove } = this.props
+		const { post,vote,openPostModal,remove } = this.props
 
 		if (!post) {
 			return (
@@ -29,7 +30,7 @@ class Post extends Component {
 				</div>
 				<br/>
 				<div>
-			    <Button bsSize="xsmall" data-id={post.id} onClick={() => openModal(post.id)}>
+			    <Button bsSize="xsmall" data-id={post.id} onClick={() => openPostModal(post.id)}>
             Edit <Glyphicon glyph="edit"/>
           </Button>
           <Button bsSize="xsmall" data-id={post.id} onClick={() => remove(post.id)}>
@@ -55,7 +56,7 @@ const mapDispatchToProps = (dispatch) => {
 		fetchData: (id) => dispatch(getPost(id)),
 		vote: (id,vote) => dispatch(votePost(id,vote)),
 		remove: (id) => dispatch(deletePost(id)),
-    openModal: (id) => dispatch(showModal(id)),
+    openPostModal: (id) => dispatch(showModal(id, globalConsts.POST_MODAL)),
   }
 }
 

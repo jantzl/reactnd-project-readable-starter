@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { showModal } from '../actions/'
 import PostEntry from './PostEntry'
 import PostModal from './PostModal'
+import * as globalConsts from '../utils/GlobalConsts'
 
 const up = 'chevron-up'
 const down = 'chevron-down'
@@ -76,8 +77,6 @@ class PostList extends Component {
 								return true
 							}))
 							.sort((a,b) => {
-								//console.log( ' a is ',a)
-								//console.log( ' b is ',b)
 								if (this.state.date_icon === down) {
 									return b.timestamp - a.timestamp
 								}
@@ -113,7 +112,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		openModal: () => dispatch(showModal()),
+		openModal: () => dispatch(showModal(null, globalConsts.POST_MODAL)),
 	}
 }
 
