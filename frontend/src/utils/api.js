@@ -18,12 +18,6 @@ export const fetchCategories  = () =>
 		.then(data => data.categories)
 
 // ------ post functions ---------
-// FIXME - test
-export const fetchPostsByCategory  = (category) => 
-  fetch(`${api}/${category}/posts`, { headers })
-    .then((res) => res.json())
-		.then(data => data.posts)
-
 export const fetchAllPosts  = (cb) => 
   fetch(`${api}/posts`, { headers })
     .then((res) => res.json())
@@ -35,8 +29,8 @@ export const createPost  = (post) => {
 			if (post.id === undefined) {
 				post.id = Math.random().toString(36).substring(2) 
 									 + (new Date()).getTime().toString(36)
+				post.timestamp = Date.now()
 			}
-			post.timestamp = Date.now()
 
 			fetch(`${api}/posts`, 
 					{headers, method: 'POST', 
