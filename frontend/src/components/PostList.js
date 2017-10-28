@@ -31,8 +31,8 @@ class PostList extends Component {
 		return (
 			<div className='post-list-container'>
 				<div className='post-fixme'>
-					FIXME: also needs a sort
-					FIXME post list goes here
+          <Button bsSize="small">FIXME Sort Date</Button>
+          <Button bsSize="small">FIXME Sort Score</Button>
           <Button bsSize="small" onClick={openModal}>
             Create Post <Glyphicon glyph="plus-sign"/>
           </Button>

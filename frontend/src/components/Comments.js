@@ -7,17 +7,18 @@ import Comment from './Comment'
 
 class Comments extends Component {
 	static propTypes = {
-		comments: PropTypes.array.isRequired,
+		comments: PropTypes.array,
 	}
 
 	render () { 
 		const { comments } = this.props
 
 		// if no posts, show loading state
-		if (comments != null) {
+		if (comments) { 
 			return (
 				<div className='comment-container'>
 					<div><b>Comments Section</b></div>
+					<div>number of comments: {comments.length}</div>
 					{ comments.map((comment, index) => {
 						return (
 							<Comment key={comment.id} comment={comment} />
