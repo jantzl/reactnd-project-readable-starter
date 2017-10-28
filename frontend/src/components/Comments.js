@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { ProgressBar, Button, Glyphicon } from 'react-bootstrap'
+import { Button, Glyphicon } from 'react-bootstrap'
 import { showModal } from '../actions/'
 import Comment from './Comment'
 
@@ -18,6 +18,11 @@ class Comments extends Component {
 			return (
 				<div className='comment-container'>
 					<div><b>Comments Section</b></div>
+					<div>
+						<Button bsSize="xsmall">
+							Add Comment <Glyphicon glyph="microphone"/>
+						</Button>
+					</div>
 					<div>number of comments: {comments.length}</div>
 					{ comments.map((comment, index) => {
 						return (
