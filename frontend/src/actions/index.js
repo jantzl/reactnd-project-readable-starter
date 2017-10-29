@@ -44,12 +44,14 @@ export const getPosts = () => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }
 
+/*
 export const getPost = (id) => dispatch => {
 	api.fetchPostById(id)
 	.then( post => dispatch(receivePost(post)))
 	.then( dispatch(getComments(id)))
 	.catch( error => dispatch(receiveError(error)))
 }	
+*/
 
 export const receivePost = post => ({
 	type: types.RECEIVE_POST,
@@ -128,10 +130,10 @@ export const voteComment = (id, vote) => dispatch => {
 }	
 
 
-export const showModal = (id=null, type) => {
+export const showModal = (data=null, type) => {
 	return {
 		type: types.SHOW_MODAL, 
-		id: id, 
+		data: data, 
 		modalType: type,
 	}
 }

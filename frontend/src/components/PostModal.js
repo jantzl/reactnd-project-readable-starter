@@ -36,7 +36,7 @@ const mapStateToProps = (state) => {
   return {
     postModalOpen: state.modal.showModal,
     modalType: state.modal.modalType,
-    selectedPost: state.posts.selectedPost,
+    selectedPost: state.modal.data,
   }
 }
 

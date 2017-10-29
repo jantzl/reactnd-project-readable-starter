@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Button, Glyphicon } from 'react-bootstrap'
+import { Button, Glyphicon, ProgressBar } from 'react-bootstrap'
 import { showModal, getComments } from '../actions/'
 import Comment from './Comment'
 import CommentModal from './CommentModal'
@@ -20,13 +20,15 @@ class Comments extends Component {
 
 	render () { 
     const { post_id, openModal, comments } = this.props
+    const isEmpty = comments.length === 0
 
 		// if no posts, show loading state
-		if (comments === undefined) { 
+		if (isEmpty) {
 			return (
-				<div>no comments</div>
+        <ProgressBar active now={100} />
 			)
 		}
+
 		return (
 			<div className='comment-container'>
 				<div><b>Comments Section</b></div>
@@ -52,7 +54,9 @@ class Comments extends Component {
 
 const mapStateToProps = (state,ownProps) => {
 	return {
-    comments: state.posts.itemsById[ownProps.post_id].comments,
+    comments: state.posts.itemsById[ownProps.post_id].comments === undefined  ?
+							[] :
+							Object.values(state.posts.itemsById[ownProps.post_id].comments),
 	}
 }
 

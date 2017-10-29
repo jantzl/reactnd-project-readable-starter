@@ -2,17 +2,19 @@ import {combineReducers } from 'redux'
 import * as types from '../utils/ActionTypes'
 import { reducer as formReducer } from 'redux-form'
 
-const modal = (state = {modalType: null, showModal: false}, action) => {
+const modal = (state = {modalType: null, showModal: false, data: null}, action) => {
 	switch (action.type) {
 		case types.SHOW_MODAL: 
 			return {
 				modalType: action.modalType,
-				showModal: true
+				showModal: true,
+				data: action.data,
 			}
 		case types.HIDE_MODAL: 
 			return {
 				modalType: action.modalType,
-				showModal: false
+				showModal: false,
+				data: action.data,
 			}
 		default:
 			return state
@@ -22,23 +24,12 @@ const modal = (state = {modalType: null, showModal: false}, action) => {
 const initialState = {
 	didInvalidate: false, 
 	itemsById: {},
-	selectedPost: {},
-	selectedComments: {},
 }
 
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
-		//FIXME - refactor this like post component
-		case types.SHOW_MODAL: 
-			if (action.id != null) {
-				return {
-					...state,
-					selectedPost: state['itemsById'][action.id],
-				}
-			} 
-			return state
 		case types.ADD_POST: 
-		case types.RECEIVE_POST: 
+		//case types.RECEIVE_POST: 
 			return {
 				...state,
 				itemsById: {
@@ -53,10 +44,10 @@ const posts = (state = initialState, action)  => {
 					...state['itemsById'],
 					[action.comment.parentId]: {
 						...state['itemsById'][action.comment.parentId],
-						comments: [
+						comments: {
 							...state['itemsById'][action.comment.parentId]['comments'],
-							action.comment
-						],
+							[action.comment.id]: action.comment,
+						},
 						numberOfComments: state['itemsById'][action.comment.parentId]['numberOfComments']++,
 					}
 				}
@@ -83,7 +74,10 @@ const posts = (state = initialState, action)  => {
 					[action.id]: {
 						...state['itemsById'][action.id],
 						numberOfComments: action.comments.length,
-						comments: action.comments
+						comments: action.comments.reduce((obj, comment) => {
+							obj[comment.id] = comment
+							return obj
+						}, {}),
 					}
 				}, 
 			}

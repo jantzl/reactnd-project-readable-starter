@@ -29,7 +29,7 @@ class Post extends Component {
 				</div>
 				<br/>
 				<div>
-			    <Button bsSize="xsmall" data-id={post.id} onClick={() => openPostModal(post.id)}>
+			    <Button bsSize="xsmall" data-id={post.id} onClick={() => openPostModal(post)}>
             Edit <Glyphicon glyph="edit"/>
           </Button>
           <Button bsSize="xsmall" data-id={post.id} onClick={() => remove(post.id)}>

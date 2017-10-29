@@ -33,7 +33,7 @@ class PostEntry extends Component {
 					<Button onClick={() => vote(post.id, 'downVote')} bsSize="xsmall" data-id={post.id}>Down Vote <Glyphicon glyph="arrow-down"/></Button>
 				</td>
 				<td>
-					<Button bsSize="xsmall" data-id={post.id} onClick={() => openModal(post.id)}>
+					<Button bsSize="xsmall" data-id={post.id} onClick={() => openModal(post)}>
 						Edit <Glyphicon glyph="edit"/>
 					</Button>
 					<Button bsSize="xsmall" data-id={post.id} onClick={() => remove(post.id)}>

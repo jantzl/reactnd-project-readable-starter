@@ -110,12 +110,13 @@ export const voteOnComment  = (id) =>
     .then((res) => res.json())
 		.then(data => console.log('what to do with this', data))
 
-// FIXME needs test - inputs? outputs?
+/*
 export const updateComment  = (id) => 
 	fetch(`${api}/comments`, 
 			{headers, method: 'PUT', body: ''})
     .then((res) => res.json())
 		.then(data => console.log('what to do with this', data))
+		*/
 
 // FIXME needs test
 export const deleteComment  = (id) => 

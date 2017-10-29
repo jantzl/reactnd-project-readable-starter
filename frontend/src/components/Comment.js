@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { voteComment } from '../actions/'
-
+import { voteComment, showModal } from '../actions/'
+import * as globalConsts from '../utils/GlobalConsts'
 
 class Comment extends Component {
 	static propTypes = {
@@ -11,8 +11,7 @@ class Comment extends Component {
   }
 
 	render () {
-		const comment = this.props.comment
-    const vote = this.props.vote
+		const { comment, vote, openModal } = this.props
 
 		return (
 			<div> 
@@ -25,7 +24,7 @@ class Comment extends Component {
 					</div>
 				</div>
 				<div>
-					<Button bsSize="xsmall" data-id={comment.id}> 
+					<Button bsSize="xsmall" data-id={comment.id} onClick={() => openModal(comment)}> 
 						Edit <Glyphicon glyph="edit"/>
 					</Button>
 					<Button bsSize="xsmall" data-id={comment.id}>
@@ -44,6 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+		openModal: (comment) => dispatch(showModal(comment, globalConsts.COMMENT_MODAL)),
     vote: (id,vote) => dispatch(voteComment(id,vote)),
 	}
 }
