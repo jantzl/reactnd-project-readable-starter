@@ -19,8 +19,8 @@ class Comment extends Component {
 					{comment.author} says: {comment.body}
 					<div className="comment-score">
 						{comment.voteScore}
-			      <Button onClick={() => vote(comment.id, 'upVote')} bsSize="xsmall"><Glyphicon glyph="arrow-up"/></Button>
-						<Button onClick={() => vote(comment.id, 'downVote')} bsSize="xsmall"><Glyphicon glyph="arrow-down"/></Button>
+			      <Button onClick={() => vote(comment.id, comment.parentId, 'upVote')} bsSize="xsmall"><Glyphicon glyph="arrow-up"/></Button>
+						<Button onClick={() => vote(comment.id, comment.parentId, 'downVote')} bsSize="xsmall"><Glyphicon glyph="arrow-down"/></Button>
 					</div>
 				</div>
 				<div>
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
 		openModal: (comment) => dispatch(showModal(comment, globalConsts.COMMENT_MODAL)),
-    vote: (id,vote) => dispatch(voteComment(id,vote)),
+    vote: (id, parentId, vote) => dispatch(voteComment(id, parentId, vote)),
     remove: (id, parentId) => dispatch(deleteComment(id, parentId)),
 	}
 }

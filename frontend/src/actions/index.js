@@ -106,21 +106,22 @@ export const createComment = comment => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }	
 
-export const receiveCommentUpdate = comment => {
+export const receiveCommentUpdate = (parentId, comment) => {
 	return {
-		type: types.RECEIVE_COMMENT_UPDATE, comment
+		type: types.RECEIVE_COMMENT_UPDATE, 
+		parentId: parentId, 
+		comment: comment,
 	}
 }	
 
-export const voteComment = (id, vote) => dispatch => {
-	api.voteOnComment(id, vote, (comment) => {dispatch(receiveCommentUpdate(comment))})
+export const voteComment = (id, parentId, vote) => dispatch => {
+	api.voteOnComment(id, vote, (comment) => {dispatch(receiveCommentUpdate(parentId, comment))})
 }	
 
 export const deleteComment = (id, parentId) => dispatch => {
 	api.deleteComment(id)
 	.then(comments => {
 		dispatch(getComments(parentId))
-		//dispatch(removeComment(id))
 	})
 	.catch( error => dispatch(receiveError(error)))
 }	

@@ -52,7 +52,6 @@ const posts = (state = initialState, action)  => {
 					}
 				}
 			}
-			return state
 		case types.HIDE_MODAL: 
 			return {
 				...state,
@@ -78,6 +77,23 @@ const posts = (state = initialState, action)  => {
 							obj[comment.id] = comment
 							return obj
 						}, {}),
+					}
+				}, 
+			}
+		case types.RECEIVE_COMMENT_UPDATE: 
+			return {
+				...state,
+				itemsById: {
+					...state['itemsById'],
+					[action.parentId]: {
+						...state['itemsById'][action.parentId],
+						comments: {
+							...state['itemsById'][action.parentId]['comments'],
+							[action.comment.id]: {
+								...state['itemsById'][action.parentId]['comments'][action.comment.id],
+								voteScore: action.comment.voteScore
+							}
+						}
 					}
 				}, 
 			}

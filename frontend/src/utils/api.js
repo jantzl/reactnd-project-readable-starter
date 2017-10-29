@@ -108,12 +108,12 @@ export const fetchCommentById  = (id) =>
     .then((res) => res.json())
 		.then(data => data.comments)
 
-// FIXME needs test - inputs? outputs?
-export const voteOnComment  = (id) => 
-	fetch(`${api}/comments`, 
-			{headers, method: 'POST', body: ''})
+export const voteOnComment  = (id, vote, cb) => 
+	fetch(`${api}/comments/${id}`, 
+			{ headers, method: 'POST', 
+				body:  JSON.stringify({option:vote})})
     .then((res) => res.json())
-		.then(data => console.log('what to do with this', data))
+		.then(data => cb(data))
 
 export const deleteComment = (id) => {
 	return new Promise(
