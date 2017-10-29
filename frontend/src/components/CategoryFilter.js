@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import FilterLink from './FilterLink'
 
 export default class CategoryFilter extends Component {
-	//FIXME - need to include an onclick to change the filter
 	render() {
 		const { categories } = this.props
 		return (
