@@ -55,7 +55,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.categories.categories,
+    categories: state.categories,
     errorMessage: state.errorMessage
   }
 }

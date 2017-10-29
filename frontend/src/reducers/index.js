@@ -113,23 +113,10 @@ const posts = (state = initialState, action)  => {
 	}
 }
 
-//FIXME - clean up 
-const catInitialState = {
-	categories: [],
-}
-
-const categories = (state = catInitialState, action)  => {
+const categories = (state = [], action)  => {
 	switch (action.type) {
-		case types.SELECT_CATEGORY: 
-			return {
-				...state,
-				selectedCategory: action.selected
-			}
 		case types.RECEIVE_CATEGORIES: 
-			return {
-				...state,
-				categories: action.categories
-			}
+			return action.categories
 		default: 
 			return state
 	}

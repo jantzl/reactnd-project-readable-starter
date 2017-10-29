@@ -36,7 +36,7 @@ let PostForm = props => {
 
 const mapStateToProps = (state) => {
 	return{
-    categories: state.categories.categories,
+    categories: state.categories,
 	}
 }
 
