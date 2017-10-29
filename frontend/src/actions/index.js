@@ -25,6 +25,7 @@ export const createPost = post => dispatch => {
 	api.createPost(post)
 	.then((res) => {
 		dispatch(addPost(res))
+		dispatch(getComments(res.id))
 		dispatch(hideModal())
 	})
 	.catch( error => dispatch(receiveError(error)))

@@ -29,7 +29,6 @@ const initialState = {
 const posts = (state = initialState, action)  => {
 	switch (action.type) {
 		case types.ADD_POST: 
-		//case types.RECEIVE_POST: 
 			return {
 				...state,
 				itemsById: {
