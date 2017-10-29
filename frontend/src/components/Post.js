@@ -1,15 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Glyphicon } from 'react-bootstrap'
-import { getPost, votePost, deletePost, showModal } from '../actions/'
+import { votePost, deletePost, showModal } from '../actions/'
 import Comments from './Comments'
 import NotFound from './NotFound'
 import PostModal from './PostModal'
-import CommentModal from './CommentModal'
 import * as globalConsts from '../utils/GlobalConsts'
 
 class Post extends Component {
-
   render() {
 		const { post,vote,openPostModal,remove } = this.props
 
@@ -39,9 +37,8 @@ class Post extends Component {
           </Button>
 				</div>
 				<br/>
-				<Comments comments={post.comments} />
+				<Comments post_id={post.id} />
 			  <PostModal />
-			  <CommentModal />
       </div>
     )
   }
@@ -55,7 +52,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-		fetchData: (id) => dispatch(getPost(id)),
 		vote: (id,vote) => dispatch(votePost(id,vote)),
 		remove: (id) => dispatch(deletePost(id)),
     openPostModal: (id) => dispatch(showModal(id, globalConsts.POST_MODAL)),

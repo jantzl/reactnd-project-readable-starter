@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { createComment, hideModal } from '../actions/'
 import * as globalConsts from '../utils/GlobalConsts'
 import CommentForm from './CommentForm'
 
 class CommentModal extends Component {
+  static propTypes = {
+    post_id: PropTypes.string,
+  }
+
 	submit = (values) => {
-		const { createComment } = this.props
+		const { createComment, post_id } = this.props
+		values.parentId=post_id
 		createComment(values)
 	}
 

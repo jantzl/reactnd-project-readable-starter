@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Glyphicon } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { voteComment } from '../actions/'
+
 
 class Comment extends Component {
 	static propTypes = {
@@ -9,9 +12,18 @@ class Comment extends Component {
 
 	render () {
 		const comment = this.props.comment
+    const vote = this.props.vote
+
 		return (
 			<div> 
-			{comment.author} says: {comment.body}
+				<div className="comment-info">
+					{comment.author} says: {comment.body}
+					<div className="comment-score">
+						{comment.voteScore}
+			      <Button onClick={() => vote(comment.id, 'upVote')} bsSize="xsmall"><Glyphicon glyph="arrow-up"/></Button>
+						<Button onClick={() => vote(comment.id, 'downVote')} bsSize="xsmall"><Glyphicon glyph="arrow-down"/></Button>
+					</div>
+				</div>
 				<div>
 					<Button bsSize="xsmall" data-id={comment.id}> 
 						Edit <Glyphicon glyph="edit"/>
@@ -25,4 +37,16 @@ class Comment extends Component {
 	}
 }
 
-export default Comment
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    vote: (id,vote) => dispatch(voteComment(id,vote)),
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Comment)
+

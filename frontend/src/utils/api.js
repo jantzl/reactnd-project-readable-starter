@@ -81,14 +81,23 @@ export const fetchCommentsByPost  = (post_id) => {
 	)
 }
 
-// FIXME needs test - inputs? outputs?
-export const addComment  = () => 
-	fetch(`${api}/comments`, 
-			{headers, method: 'POST', body: ''})
-    .then((res) => res.json())
-		.then(data => console.log('what to do with this', data))
+export const createComment  = (comment) => {
+	return new Promise(
+		function (resolve, reject) {
+      if (comment.id === undefined) {
+        comment.id = Math.random().toString(36).substring(2)
+                   + (new Date()).getTime().toString(36)
+        comment.timestamp = Date.now()
+      }
+			fetch(`${api}/comments`, 
+					{headers, method: 'POST', 
+					body:  JSON.stringify(comment)})
+				.then((res) => res.json())
+				.then(data => resolve(data))
+		}
+	)
+}
 
-// looks good GET
 export const fetchCommentById  = (id) => 
   fetch(`${api}/comments/${id}`, { headers })
     .then((res) => res.json())

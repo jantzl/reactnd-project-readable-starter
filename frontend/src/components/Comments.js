@@ -2,51 +2,64 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Button, Glyphicon } from 'react-bootstrap'
-import { showModal } from '../actions/'
+import { showModal, getComments } from '../actions/'
 import Comment from './Comment'
+import CommentModal from './CommentModal'
+import * as globalConsts from '../utils/GlobalConsts'
 
 class Comments extends Component {
 	static propTypes = {
-		comments: PropTypes.array,
+		post_id: PropTypes.string,
 	}
 
+  componentDidMount() {
+    const { post_id, fetchData } = this.props
+
+    fetchData(post_id)
+  }
+
 	render () { 
-		const { comments } = this.props
+    const { post_id, openModal, comments } = this.props
 
 		// if no posts, show loading state
-		if (comments) { 
+		if (comments === undefined) { 
 			return (
-				<div className='comment-container'>
-					<div><b>Comments Section</b></div>
-					<div>
-						<Button bsSize="xsmall">
-							Add Comment <Glyphicon glyph="microphone"/>
-						</Button>
-					</div>
-					<div>number of comments: {comments.length}</div>
+				<div>no comments</div>
+			)
+		}
+		return (
+			<div className='comment-container'>
+				<div><b>Comments Section</b></div>
+				<div>
+					<Button bsSize="xsmall" onClick={() => openModal()}>
+						Add Comment <Glyphicon glyph="microphone"/>
+					</Button>
+				</div>
+				<div>number of comments: {comments.length}</div>
+				<div className="comment-container">
 					{ comments.map((comment, index) => {
 						return (
 							<Comment key={comment.id} comment={comment} />
 						);
 					})}
 				</div>
-			)
-		}
-		
-		return (
-			<div></div>
+				<CommentModal post_id={post_id}/>
+			</div>
 		)
+		
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state,ownProps) => {
 	return {
+    comments: state.posts.itemsById[ownProps.post_id].comments,
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		openModal: () => dispatch(showModal()),
+		openModal: () => dispatch(showModal(null, globalConsts.COMMENT_MODAL)),
+    fetchData: (id) => dispatch(getComments(id))
 	}
 }
 

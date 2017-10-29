@@ -3,20 +3,11 @@ import { Field, reduxForm } from 'redux-form'
 
 
 let CommentForm = props => {
-	//const closePostModal = props.closePostModal
-	//const postModalOpen = props.postModalOpen
+	const closePostModal = props.closePostModal
 	const handleSubmit = props.handleSubmit
 
 	return (
 		<form>
-			<div>FORM GOES HERE</div>
-		</form>
-	)
-}
-/*
-			<div>
-				<Field name="title" component="input" type="text" placeholder="your title here" />
-			</div>
 			<div>
 				<Field name="author" component="input" type="text" placeholder="your name here" />
 			</div>
@@ -25,7 +16,9 @@ let CommentForm = props => {
 			</div>
 			<button onClick={handleSubmit}>Post</button>
 			<button onClick={closePostModal}>Cancel</button>
-			*/
+		</form>
+	)
+}
 
 CommentForm = reduxForm({
 	form: 'comment'

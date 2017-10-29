@@ -101,18 +101,32 @@ export const getComments = (id) => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }	
 
-export function createComment ({postId, commentText}) {
-	console.log('do create here')
-	/*
+export const addComment = comment => {
 	return {
 		type: types.ADD_COMMENT,
-		payload: {
-			postId,
-			commentText
-		}
+		comment: comment
 	}
-	*/
+}
+
+export const createComment = comment => dispatch => {
+	api.createComment(comment)
+	.then((res) => {
+		dispatch(addComment(res))
+		dispatch(hideModal())
+	})
+	.catch( error => dispatch(receiveError(error)))
 }	
+
+export const receiveCommentUpdate = comment => {
+	return {
+		type: types.RECEIVE_COMMENT_UPDATE, comment
+	}
+}	
+
+export const voteComment = (id, vote) => dispatch => {
+	api.voteOnComment(id, vote, (comment) => {dispatch(receiveCommentUpdate(comment))})
+}	
+
 
 export const showModal = (id=null, type) => {
 	return {

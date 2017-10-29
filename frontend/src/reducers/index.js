@@ -46,6 +46,22 @@ const posts = (state = initialState, action)  => {
 					[action.post.id]: action.post,
 				}
 			}
+		case types.ADD_COMMENT:
+			return {
+				...state,
+				itemsById: {
+					...state['itemsById'],
+					[action.comment.parentId]: {
+						...state['itemsById'][action.comment.parentId],
+						comments: [
+							...state['itemsById'][action.comment.parentId]['comments'],
+							action.comment
+						],
+						numberOfComments: state['itemsById'][action.comment.parentId]['numberOfComments']++,
+					}
+				}
+			}
+			return state
 		case types.HIDE_MODAL: 
 			return {
 				...state,
