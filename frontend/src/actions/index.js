@@ -44,20 +44,6 @@ export const getPosts = () => dispatch => {
 	.catch( error => dispatch(receiveError(error)))
 }
 
-/*
-export const getPost = (id) => dispatch => {
-	api.fetchPostById(id)
-	.then( post => dispatch(receivePost(post)))
-	.then( dispatch(getComments(id)))
-	.catch( error => dispatch(receiveError(error)))
-}	
-*/
-
-export const receivePost = post => ({
-	type: types.RECEIVE_POST,
-	post: post
-})	
-
 export const receivePostUpdate = post => {
 	return {
 		type: types.RECEIVE_POST_UPDATE, post
@@ -69,7 +55,8 @@ export const votePost = (id, vote) => dispatch => {
 }	
 
 export const deletePost = (id) => dispatch => {
-	api.deletePost(id, posts => {
+	api.deletePost(id)
+	.then(posts => {
 		dispatch(getPosts())
 	})
 	.catch( error => dispatch(receiveError(error)))
@@ -129,6 +116,14 @@ export const voteComment = (id, vote) => dispatch => {
 	api.voteOnComment(id, vote, (comment) => {dispatch(receiveCommentUpdate(comment))})
 }	
 
+export const deleteComment = (id, parentId) => dispatch => {
+	api.deleteComment(id)
+	.then(comments => {
+		dispatch(getComments(parentId))
+		//dispatch(removeComment(id))
+	})
+	.catch( error => dispatch(receiveError(error)))
+}	
 
 export const showModal = (data=null, type) => {
 	return {

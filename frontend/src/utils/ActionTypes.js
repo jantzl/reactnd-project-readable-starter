@@ -1,5 +1,5 @@
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const RECEIVE_POST = 'RECEIVE_POST'
+//export const RECEIVE_POST = 'RECEIVE_POST'
 export const ADD_POST = 'ADD_POST'
 export const RECEIVE_POST_UPDATE = 'RECEIVE_POST_UPDATE'
 export const VOTE_POST = 'VOTE_POST'

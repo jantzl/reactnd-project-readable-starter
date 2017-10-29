@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Glyphicon } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { voteComment, showModal } from '../actions/'
+import { voteComment, deleteComment, showModal } from '../actions/'
 import * as globalConsts from '../utils/GlobalConsts'
 
 class Comment extends Component {
@@ -11,7 +11,7 @@ class Comment extends Component {
   }
 
 	render () {
-		const { comment, vote, openModal } = this.props
+		const { comment, vote, openModal, remove } = this.props
 
 		return (
 			<div> 
@@ -27,7 +27,7 @@ class Comment extends Component {
 					<Button bsSize="xsmall" data-id={comment.id} onClick={() => openModal(comment)}> 
 						Edit <Glyphicon glyph="edit"/>
 					</Button>
-					<Button bsSize="xsmall" data-id={comment.id}>
+					<Button bsSize="xsmall" data-id={comment.id} onClick={() => remove(comment.id, comment.parentId)}>
 						Delete <Glyphicon glyph="remove-circle"/>
 					</Button>
 				</div>
@@ -45,6 +45,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
 		openModal: (comment) => dispatch(showModal(comment, globalConsts.COMMENT_MODAL)),
     vote: (id,vote) => dispatch(voteComment(id,vote)),
+    remove: (id, parentId) => dispatch(deleteComment(id, parentId)),
 	}
 }
 

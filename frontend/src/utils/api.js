@@ -59,16 +59,21 @@ export const voteOnPost  = (id,vote,cb) => {
 		.then(data => cb(data))
 }
 
-export const deletePost = (id, cb) => 
-  fetch(`${api}/posts/${id}`, { headers, method: 'DELETE' })
-    .then((res) => {
-			if (!res.ok) {
-				throw res.statusText
-			}
-			res.json()
+export const deletePost = (id) => {
+	return new Promise(
+		function(resolve,reject) {
+			fetch(`${api}/posts/${id}`, { headers, method: 'DELETE' })
+				.then((res) => {
+					if (!res.ok) {
+						throw res.statusText
+					}
+					res.json()
 
-		})
-		.then(() => cb())
+				})
+				.then(() => resolve())
+		}
+	)
+}
 
 // ------ comment functions ---------
 export const fetchCommentsByPost  = (post_id) => {
@@ -110,17 +115,19 @@ export const voteOnComment  = (id) =>
     .then((res) => res.json())
 		.then(data => console.log('what to do with this', data))
 
-/*
-export const updateComment  = (id) => 
-	fetch(`${api}/comments`, 
-			{headers, method: 'PUT', body: ''})
-    .then((res) => res.json())
-		.then(data => console.log('what to do with this', data))
-		*/
+export const deleteComment = (id) => {
+	return new Promise(
+		function(resolve,reject) {
+			fetch(`${api}/comments/${id}`, { headers, method: 'DELETE' })
+				.then((res) => {
+					if (!res.ok) {
+						throw res.statusText
+					}
+					res.json()
 
-// FIXME needs test
-export const deleteComment  = (id) => 
-  fetch(`${api}/comments/${id}`, { headers, method: 'DELETE' })
-    .then((res) => res.json())
-		.then(data => data.posts)
+				})
+				.then(() => resolve())
+		}
+	)
+}
 
