@@ -23,7 +23,7 @@ class Comments extends Component {
     const isEmpty = comments.length === 0
 
 		// if no posts, show loading state
-		if (isEmpty) {
+		if (!comments) {
 			return (
         <ProgressBar active now={100} />
 			)
